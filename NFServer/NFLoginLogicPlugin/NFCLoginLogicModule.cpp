@@ -15,18 +15,20 @@ bool NFCLoginLogicModule::Init()
 	m_pAccountRedisModule = pPluginManager->FindModule<NFIAccountRedisModule>();
 	m_pNetModule = pPluginManager->FindModule<NFINetModule>();
 	m_pLogModule = pPluginManager->FindModule<NFILogModule>();
-
-    return true;
+	//m_pMysqlModule = pPluginManager->FindModule<NFIMysqlModule>();
+	m_pElementModule = pPluginManager->FindModule<NFIElementModule>();
+	m_pKernelModule = pPluginManager->FindModule<NFIKernelModule>();
+	return true;
 }
 
 bool NFCLoginLogicModule::Shut()
 {
-    return true;
+	return true;
 }
 
 void NFCLoginLogicModule::OnLoginProcess(const int nSockIndex, const int nMsgID, const char* msg, const uint32_t nLen)
 {
-    NFGUID nPlayerID;
+	NFGUID nPlayerID;
 	NFMsg::ReqAccountLogin xMsg;
 	if (!m_pNetModule->ReceivePB(nSockIndex, nMsgID, msg, nLen, xMsg, nPlayerID))
 	{
@@ -75,18 +77,31 @@ bool NFCLoginLogicModule::ReadyExecute()
 	m_pNetModule->RemoveReceiveCallBack(NFMsg::EGMI_REQ_LOGIN);
 	m_pNetModule->AddReceiveCallBack(NFMsg::EGMI_REQ_LOGIN, this, &NFCLoginLogicModule::OnLoginProcess);
 
-    return true;
+	return true;
 }
 
 bool NFCLoginLogicModule::Execute()
 {
 
 
-    return true;
+	return true;
 }
 
 
 bool NFCLoginLogicModule::AfterInit()
 {
-    return true;
+	//m_pMysqlModule->AddMysqlServer(1, "127.0.0.1", "127.0.0.1", 3306, "nf_account", "root", "111111");
+	//std::vector<std::string> fields;
+	//std::vector<std::string> fieldvalues;
+	//m_pMysqlModule->ExecuteReader("select * from user_account", NULL, fields, fieldvalues);
+	//std::vector<std::string> paramVec;
+	//paramVec.push_back("@userpass='222222'");
+	//NFGUID playerid = m_pKernelModule->CreateGUID();
+	//NFDataList agr;
+	//NF_SHARE_PTR<NFIObject> pObject = m_pKernelModule->CreateObject(playerid, 1, 0, NFrame::Player::ThisName(), "", agr);
+	//pObject->GetPropertyManager().
+
+	//m_pMysqlModule->ExecuteNonQuery("update user_account set userpass=@userpass", &paramVec);
+
+	return true;
 }

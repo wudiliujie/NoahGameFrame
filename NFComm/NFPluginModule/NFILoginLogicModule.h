@@ -12,6 +12,7 @@
 #include <iostream>
 #include "NFIModule.h"
 
+
 class NFILoginLogicModule
     : public NFIModule
 {

@@ -325,6 +325,45 @@ public:
 
 };
 
+class FightProperty
+{
+public:
+	//Class name
+	static const std::string& ThisName(){ static std::string xFightProperty = "FightProperty"; return xFightProperty; }
+	// IObject
+	static const std::string& ID(){ static std::string xID = "ID"; return xID; } // string
+	static const std::string& ClassName(){ static std::string xClassName = "ClassName"; return xClassName; } // string
+	static const std::string& SceneID(){ static std::string xSceneID = "SceneID"; return xSceneID; } // int
+	static const std::string& GroupID(){ static std::string xGroupID = "GroupID"; return xGroupID; } // int
+	static const std::string& ConfigID(){ static std::string xConfigID = "ConfigID"; return xConfigID; } // string
+	static const std::string& X(){ static std::string xX = "X"; return xX; } // float
+	static const std::string& Y(){ static std::string xY = "Y"; return xY; } // float
+	static const std::string& Z(){ static std::string xZ = "Z"; return xZ; } // float
+	// Property
+	static const std::string& Atk_Gold(){ static std::string xAtk_Gold = "Atk_Gold"; return xAtk_Gold; } // int
+	static const std::string& Atk_Wood(){ static std::string xAtk_Wood = "Atk_Wood"; return xAtk_Wood; } // int
+	static const std::string& Atk_Water(){ static std::string xAtk_Water = "Atk_Water"; return xAtk_Water; } // int
+	static const std::string& Atk_Fire(){ static std::string xAtk_Fire = "Atk_Fire"; return xAtk_Fire; } // int
+	static const std::string& Atk_Soil(){ static std::string xAtk_Soil = "Atk_Soil"; return xAtk_Soil; } // int
+	static const std::string& Def_Gold(){ static std::string xDef_Gold = "Def_Gold"; return xDef_Gold; } // int
+	static const std::string& Def_Wood(){ static std::string xDef_Wood = "Def_Wood"; return xDef_Wood; } // int
+	static const std::string& Def_Water(){ static std::string xDef_Water = "Def_Water"; return xDef_Water; } // int
+	static const std::string& Def_Fire(){ static std::string xDef_Fire = "Def_Fire"; return xDef_Fire; } // int
+	static const std::string& Def_Soil(){ static std::string xDef_Soil = "Def_Soil"; return xDef_Soil; } // int
+	static const std::string& Hit(){ static std::string xHit = "Hit"; return xHit; } // int
+	static const std::string& Misse(){ static std::string xMisse = "Misse"; return xMisse; } // int
+	static const std::string& Cri(){ static std::string xCri = "Cri"; return xCri; } // int
+	static const std::string& Acri(){ static std::string xAcri = "Acri"; return xAcri; } // int
+	static const std::string& Hurt_Add(){ static std::string xHurt_Add = "Hurt_Add"; return xHurt_Add; } // int
+	static const std::string& Hurt_Reduce(){ static std::string xHurt_Reduce = "Hurt_Reduce"; return xHurt_Reduce; } // int
+	static const std::string& Move_Speed(){ static std::string xMove_Speed = "Move_Speed"; return xMove_Speed; } // int
+	static const std::string& Atk_Speed(){ static std::string xAtk_Speed = "Atk_Speed"; return xAtk_Speed; } // int
+	static const std::string& Hp_Max(){ static std::string xHp_Max = "Hp_Max"; return xHp_Max; } // int
+	static const std::string& HP_Regen(){ static std::string xHP_Regen = "HP_Regen"; return xHP_Regen; } // int
+	// Record
+
+};
+
 class Guild
 {
 public:

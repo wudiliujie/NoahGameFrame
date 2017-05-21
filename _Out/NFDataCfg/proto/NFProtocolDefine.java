@@ -300,6 +300,43 @@ public class Equip {
 
 }
 
+public class FightProperty {
+	//Class name
+	public static final String ThisName = "FightProperty";
+	// IObject
+	public static final String ID = "ID"; // string
+	public static final String ClassName = "ClassName"; // string
+	public static final String SceneID = "SceneID"; // int
+	public static final String GroupID = "GroupID"; // int
+	public static final String ConfigID = "ConfigID"; // string
+	public static final String X = "X"; // float
+	public static final String Y = "Y"; // float
+	public static final String Z = "Z"; // float
+	// Property
+	public static final String Atk_Gold = "Atk_Gold"; // int
+	public static final String Atk_Wood = "Atk_Wood"; // int
+	public static final String Atk_Water = "Atk_Water"; // int
+	public static final String Atk_Fire = "Atk_Fire"; // int
+	public static final String Atk_Soil = "Atk_Soil"; // int
+	public static final String Def_Gold = "Def_Gold"; // int
+	public static final String Def_Wood = "Def_Wood"; // int
+	public static final String Def_Water = "Def_Water"; // int
+	public static final String Def_Fire = "Def_Fire"; // int
+	public static final String Def_Soil = "Def_Soil"; // int
+	public static final String Hit = "Hit"; // int
+	public static final String Misse = "Misse"; // int
+	public static final String Cri = "Cri"; // int
+	public static final String Acri = "Acri"; // int
+	public static final String Hurt_Add = "Hurt_Add"; // int
+	public static final String Hurt_Reduce = "Hurt_Reduce"; // int
+	public static final String Move_Speed = "Move_Speed"; // int
+	public static final String Atk_Speed = "Atk_Speed"; // int
+	public static final String Hp_Max = "Hp_Max"; // int
+	public static final String HP_Regen = "HP_Regen"; // int
+	// Record
+
+}
+
 public class Guild {
 	//Class name
 	public static final String ThisName = "Guild";

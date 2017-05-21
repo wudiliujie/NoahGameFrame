@@ -16,31 +16,33 @@
 #include "NFComm/NFPluginModule/NFIMysqlDriverManager.h"
 
 class NFCMysqlModule
-    : public NFIMysqlModule
+	: public NFIMysqlModule
 {
 public:
 
-    NFCMysqlModule(NFIPluginManager* p);
-    virtual ~NFCMysqlModule();
+	NFCMysqlModule(NFIPluginManager* p);
+	virtual ~NFCMysqlModule();
 
-    virtual bool Init();
-    virtual bool Shut();
-    virtual bool Execute();
-    virtual bool AfterInit();
+	virtual bool Init();
+	virtual bool Shut();
+	virtual bool Execute();
+	virtual bool AfterInit();
 
-    //////////////////////////////////////////////////////////////////////////
-    virtual bool Updata(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec);
-    virtual bool Query(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec);
-    virtual bool Select(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec);
+	//////////////////////////////////////////////////////////////////////////
+	virtual bool Updata(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec);
+	virtual bool Query(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec);
+	virtual bool Select(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec);
 
-    virtual bool Delete(const std::string& strRecordName, const std::string& strKey);
-    virtual bool Exists(const std::string& strRecordName, const std::string& strKey, bool& bExit);
-    virtual bool Keys(const std::string& strRecordName, const std::string& strKeyName, std::vector<std::string>& valueVec);
-    virtual bool AddMysqlServer(const int nServerID, const std::string& strDns, const std::string& strIP, const int nPort, const std::string strDBName, const std::string strDBUser, const std::string strDBPwd, const int nRconnectTime = 10, const int nRconneCount = -1);
+	virtual bool Delete(const std::string& strRecordName, const std::string& strKey);
+	virtual bool Exists(const std::string& strRecordName, const std::string& strKey, bool& bExit);
+	virtual bool Keys(const std::string& strRecordName, const std::string& strKeyName, std::vector<std::string>& valueVec);
+	virtual bool AddMysqlServer(const int nServerID, const std::string& strDns, const std::string& strIP, const int nPort, const std::string strDBName, const std::string strDBUser, const std::string strDBPwd, const int nRconnectTime = 10, const int nRconneCount = -1);
+	virtual bool ExecuteReader(const std::string& strSql, const std::vector<std::string>* pParamVec, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec);
+	virtual bool ExecuteNonQuery(const std::string& strSql, const std::vector<std::string>* pParamVec);
 private:
-    NF_SHARE_PTR<NFIMysqlDriverManager> m_pMysqlDriverManager;
+	NF_SHARE_PTR<NFIMysqlDriverManager> m_pMysqlDriverManager;
 
-    NFINT64 mnLastCheckTime;
+	NFINT64 mnLastCheckTime;
 };
 
 #endif

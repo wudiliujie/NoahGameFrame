@@ -5,402 +5,472 @@ const std::string NFCMysqlDriver::strDefaultTable = "RoleInfo";
 
 NFCMysqlDriver::NFCMysqlDriver(const int nReconnectTime/* = 60*/, const int nReconnectCount /*= -1*/)
 {
-    mfCheckReconnect = 0.0f;
-    mnDBPort        = 0;
-    m_pMysqlConnect = NULL;
-    mnReconnectTime = nReconnectTime;
-    mnReconnectCount = nReconnectCount;
+	mfCheckReconnect = 0.0f;
+	mnDBPort = 0;
+	m_pMysqlConnect = NULL;
+	mnReconnectTime = nReconnectTime;
+	mnReconnectCount = nReconnectCount;
 }
 
 NFCMysqlDriver::NFCMysqlDriver(const std::string& strDBName, const std::string& strDBHost, const int nDBPort, const std::string& strDBUser, const std::string& strDBPwd)
 {
-    mfCheckReconnect = 0.0f;
-    mnDBPort        = 0;
-    m_pMysqlConnect = NULL;
+	mfCheckReconnect = 0.0f;
+	mnDBPort = 0;
+	m_pMysqlConnect = NULL;
 
-    mnReconnectTime = 60;
-    mnReconnectCount = -1;
+	mnReconnectTime = 60;
+	mnReconnectCount = -1;
 
-    Connect(strDBName, strDBHost, nDBPort, strDBUser, strDBPwd);
+	Connect(strDBName, strDBHost, nDBPort, strDBUser, strDBPwd);
 }
 
 NFCMysqlDriver::~NFCMysqlDriver()
 {
-    CloseConnection();
+	CloseConnection();
 }
 
 bool NFCMysqlDriver::Connect(const std::string& strDBName, const std::string& strDBHost, const int nDBPort, const std::string& strDBUser, const std::string& strDBPwd)
 {
-    mstrDBName  = strDBName   ;
-    mstrDBHost  = strDBHost   ;
-    mnDBPort    = nDBPort     ;
-    mstrDBUser  = strDBUser   ;
-    mstrDBPwd   = strDBPwd    ;
+	mstrDBName = strDBName;
+	mstrDBHost = strDBHost;
+	mnDBPort = nDBPort;
+	mstrDBUser = strDBUser;
+	mstrDBPwd = strDBPwd;
 
-    return Connect();
+	return Connect();
 }
 
 bool NFCMysqlDriver::Execute()
 {
-    if (IsNeedReconnect() && CanReconnect())
-    {
-        Connect(mstrDBName, mstrDBHost, mnDBPort, mstrDBUser, mstrDBPwd);
-    }
+	if (IsNeedReconnect() && CanReconnect())
+	{
+		Connect(mstrDBName, mstrDBHost, mnDBPort, mstrDBUser, mstrDBPwd);
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCMysqlDriver::Query(const std::string& qstr, mysqlpp::StoreQueryResult& queryResult)
 {
-    mysqlpp::Connection* pConection = GetConnection();
-    if (pConection)
-    {
-        NFMYSQLTRYBEGIN
-        mysqlpp::Query query = pConection->query(qstr);
-        //query.execute();
+	mysqlpp::Connection* pConection = GetConnection();
+	if (pConection)
+	{
+		NFMYSQLTRYBEGIN
+			mysqlpp::Query query = pConection->query(qstr);
+		//query.execute();
 
-        queryResult = query.store();
-        query.reset();
+		queryResult = query.store();
+		query.reset();
 
-        NFMYSQLTRYEND(qstr)
-        return true;
-    }
+		NFMYSQLTRYEND(qstr)
+			return true;
+	}
 
-    return false;
+	return false;
 }
 
 bool NFCMysqlDriver::Query(const std::string& qstr)
 {
-    mysqlpp::Connection* pConection = GetConnection();
-    if (pConection)
-    {
-        NFMYSQLTRYBEGIN
-        mysqlpp::Query query = pConection->query(qstr);
-        query.execute();
+	mysqlpp::Connection* pConection = GetConnection();
+	if (pConection)
+	{
+		NFMYSQLTRYBEGIN
+			mysqlpp::Query query = pConection->query(qstr);
+		query.execute();
 
-        query.reset();
+		query.reset();
 
-        NFMYSQLTRYEND(qstr)
-        return true;
-    }
+		NFMYSQLTRYEND(qstr)
+			return true;
+	}
 
-    return false;
+	return false;
 }
 
 mysqlpp::Connection* NFCMysqlDriver::GetConnection()
 {
-    return m_pMysqlConnect;
+	return m_pMysqlConnect;
 }
 
 void NFCMysqlDriver::CloseConnection()
 {
-    delete m_pMysqlConnect;
-    m_pMysqlConnect = NULL;
+	delete m_pMysqlConnect;
+	m_pMysqlConnect = NULL;
 }
 
 bool NFCMysqlDriver::Enable()
 {
-    return !IsNeedReconnect();
+	return !IsNeedReconnect();
 }
 
 bool NFCMysqlDriver::CanReconnect()
 {
 
-    mfCheckReconnect += 0.1f;
+	mfCheckReconnect += 0.1f;
 
-    //30分钟检查断线重连
-    if (mfCheckReconnect < mnReconnectTime)
-    {
-        return false;
-    }
+	//30分钟检查断线重连
+	if (mfCheckReconnect < mnReconnectTime)
+	{
+		return false;
+	}
 
-    if (mnReconnectCount == 0)
-    {
-        return false;
-    }
+	if (mnReconnectCount == 0)
+	{
+		return false;
+	}
 
-    mfCheckReconnect = 0.0f;
+	mfCheckReconnect = 0.0f;
 
-    return true;
+	return true;
 }
 
 bool NFCMysqlDriver::Reconnect()
 {
-    CloseConnection();
-    Connect(mstrDBName, mstrDBHost, mnDBPort, mstrDBUser, mstrDBPwd);
+	CloseConnection();
+	Connect(mstrDBName, mstrDBHost, mnDBPort, mstrDBUser, mstrDBPwd);
 
-    if (mnReconnectCount > 0)
-    {
-        mnReconnectCount--;
-    }
+	if (mnReconnectCount > 0)
+	{
+		mnReconnectCount--;
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCMysqlDriver::IsNeedReconnect()
 {
-    //没有配置表
-    if (mstrDBHost.length() < 1 || mstrDBUser.length() < 1)
-    {
-        return false;
-    }
+	//没有配置表
+	if (mstrDBHost.length() < 1 || mstrDBUser.length() < 1)
+	{
+		return false;
+	}
 
-    if (NULL == m_pMysqlConnect)
-    {
-        return true;
-    }
+	if (NULL == m_pMysqlConnect)
+	{
+		return true;
+	}
 
-    if (!m_pMysqlConnect->connected())
-    {
-        CloseConnection();
-        return true;
-    }
+	if (!m_pMysqlConnect->connected())
+	{
+		CloseConnection();
+		return true;
+	}
 
-    if (!m_pMysqlConnect->ping())
-    {
-        CloseConnection();
-        return true;
-    }
+	if (!m_pMysqlConnect->ping())
+	{
+		CloseConnection();
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
 bool NFCMysqlDriver::Connect()
 {
-    m_pMysqlConnect = new mysqlpp::Connection();
-    if (NULL == m_pMysqlConnect)
-    {
-        return false;
-    }
-    NFMYSQLTRYBEGIN
-    m_pMysqlConnect->set_option(new mysqlpp::MultiStatementsOption(true));
-    m_pMysqlConnect->set_option(new mysqlpp::SetCharsetNameOption("utf8mb4"));
-    m_pMysqlConnect->set_option(new mysqlpp::ReconnectOption(true));
-    m_pMysqlConnect->set_option(new mysqlpp::ConnectTimeoutOption(60));
-    if (!m_pMysqlConnect->connect(mstrDBName.c_str(), mstrDBHost.c_str(), mstrDBUser.c_str(), mstrDBPwd.c_str(), mnDBPort))
-    {
-        CloseConnection();
-        // 连接失败
-        return false;
-    }
+	m_pMysqlConnect = new mysqlpp::Connection();
+	if (NULL == m_pMysqlConnect)
+	{
+		return false;
+	}
+	NFMYSQLTRYBEGIN
+		m_pMysqlConnect->set_option(new mysqlpp::MultiStatementsOption(true));
+	m_pMysqlConnect->set_option(new mysqlpp::SetCharsetNameOption("utf8mb4"));
+	m_pMysqlConnect->set_option(new mysqlpp::ReconnectOption(true));
+	m_pMysqlConnect->set_option(new mysqlpp::ConnectTimeoutOption(60));
+	if (!m_pMysqlConnect->connect(mstrDBName.c_str(), mstrDBHost.c_str(), mstrDBUser.c_str(), mstrDBPwd.c_str(), mnDBPort))
+	{
+		CloseConnection();
+		// 连接失败
+		return false;
+	}
 
-    // 设置超时时间为24小时
-    mysqlpp::Query query = m_pMysqlConnect->query("set interactive_timeout = 24*3600");
-    query.execute();
-    query.reset();
-    NFMYSQLTRYEND("Connect faild")
-    return true;
+	// 设置超时时间为24小时
+	mysqlpp::Query query = m_pMysqlConnect->query("set interactive_timeout = 24*3600");
+	query.execute();
+	query.reset();
+	NFMYSQLTRYEND("Connect faild")
+		return true;
 }
 
 bool NFCMysqlDriver::Updata(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec)
 {
-    mysqlpp::Connection* pConnection = GetConnection();
-    if (NULL == pConnection)
-    {
-        return false;
-    }
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
 
-    bool bExist = false;
-    if (!Exists(strRecordName, strKey, bExist))
-    {
-        return false;
-    }
+	bool bExist = false;
+	if (!Exists(strRecordName, strKey, bExist))
+	{
+		return false;
+	}
 
-    if (fieldVec.size() != valueVec.size())
-    {
-        return false;
-    }
+	if (fieldVec.size() != valueVec.size())
+	{
+		return false;
+	}
 
-    NFMYSQLTRYBEGIN
-    mysqlpp::Query query = pConnection->query();
-    if (bExist)
-    {
-        // update
-        query << "UPDATE " << strRecordName << " SET ";
-        for (int i = 0; i < fieldVec.size(); ++i)
-        {
-            if (i == 0)
-            {
-                query << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i];
-            }
-            else
-            {
-                query << "," << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i];
-            }
-        }
+	NFMYSQLTRYBEGIN
+		mysqlpp::Query query = pConnection->query();
+	if (bExist)
+	{
+		// update
+		query << "UPDATE " << strRecordName << " SET ";
+		for (int i = 0; i < fieldVec.size(); ++i)
+		{
+			if (i == 0)
+			{
+				query << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i];
+			}
+			else
+			{
+				query << "," << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i];
+			}
+		}
 
-        query << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
-    }
-    else
-    {
-        // insert
-        query << "INSERT INTO " << strRecordName << "(" << strDefaultKey << ",";
-        for (int i = 0; i < fieldVec.size(); ++i)
-        {
-            if (i == 0)
-            {
-                query << fieldVec[i];
-            }
-            else
-            {
-                query << ", " << fieldVec[i];
-            }
-        }
+		query << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
+	}
+	else
+	{
+		// insert
+		query << "INSERT INTO " << strRecordName << "(" << strDefaultKey << ",";
+		for (int i = 0; i < fieldVec.size(); ++i)
+		{
+			if (i == 0)
+			{
+				query << fieldVec[i];
+			}
+			else
+			{
+				query << ", " << fieldVec[i];
+			}
+		}
 
-        query << ") VALUES(" << mysqlpp::quote << strKey << ",";
-        for (int i = 0; i < valueVec.size(); ++i)
-        {
-            if (i == 0)
-            {
-                query << mysqlpp::quote << valueVec[i];
-            }
-            else
-            {
-                query << ", " << mysqlpp::quote << valueVec[i];
-            }
-        }
+		query << ") VALUES(" << mysqlpp::quote << strKey << ",";
+		for (int i = 0; i < valueVec.size(); ++i)
+		{
+			if (i == 0)
+			{
+				query << mysqlpp::quote << valueVec[i];
+			}
+			else
+			{
+				query << ", " << mysqlpp::quote << valueVec[i];
+			}
+		}
 
-        query << ");";
-    }
+		query << ");";
+	}
 
-    query.execute();
-    query.reset();
-    NFMYSQLTRYEND("update or insert error")
+	query.execute();
+	query.reset();
+	NFMYSQLTRYEND("update or insert error")
 
-    return true;
+		return true;
 }
 
 
 bool NFCMysqlDriver::Query(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
 {
-    mysqlpp::Connection* pConnection = GetConnection();
-    if (NULL == pConnection)
-    {
-        return false;
-    }
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
 
-    NFMYSQLTRYBEGIN
-    mysqlpp::Query query = pConnection->query();
-    query << "SELECT ";
-    for (std::vector<std::string>::const_iterator iter = fieldVec.begin(); iter != fieldVec.end(); ++iter)
-    {
-        if (iter == fieldVec.begin())
-        {
-            query << *iter;
-        }
-        else
-        {
-            query << "," << *iter;
-        }
-    }
-    query << " FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
-    //query.execute(); // 官网例子不需要execute
-    mysqlpp::StoreQueryResult xResult = query.store();
-    query.reset();
+	NFMYSQLTRYBEGIN
+		mysqlpp::Query query = pConnection->query();
+	query << "SELECT ";
+	for (std::vector<std::string>::const_iterator iter = fieldVec.begin(); iter != fieldVec.end(); ++iter)
+	{
+		if (iter == fieldVec.begin())
+		{
+			query << *iter;
+		}
+		else
+		{
+			query << "," << *iter;
+		}
+	}
+	query << " FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
+	//query.execute(); // 官网例子不需要execute
+	mysqlpp::StoreQueryResult xResult = query.store();
+	query.reset();
 
-    if (xResult.empty() || !xResult)
-    {
-        return false;
-    }
+	if (xResult.empty() || !xResult)
+	{
+		return false;
+	}
 
-    // xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
-    for (int i = 0; i < xResult.size(); ++i)
-    {
-        for (int j = 0; j < fieldVec.size(); ++j)
-        {
-            const std::string& strFieldName = fieldVec[j];
-            std::string strValue(xResult[i][strFieldName.data()].data(), xResult[i][strFieldName.data()].length());
-            valueVec.push_back(strValue);
-        }
-    }
-    NFMYSQLTRYEND("query error")
+	// xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
+	for (int i = 0; i < xResult.size(); ++i)
+	{
+		for (int j = 0; j < fieldVec.size(); ++j)
+		{
+			const std::string& strFieldName = fieldVec[j];
+			std::string strValue(xResult[i][strFieldName.data()].data(), xResult[i][strFieldName.data()].length());
+			valueVec.push_back(strValue);
+		}
+	}
+	NFMYSQLTRYEND("query error")
 
-    return true;
+		return true;
 }
 
 
 bool NFCMysqlDriver::Select(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
 {
-    return false;
+	return false;
 }
 
 bool NFCMysqlDriver::Delete(const std::string& strRecordName, const std::string& strKey)
 {
-    mysqlpp::Connection* pConnection = GetConnection();
-    if (NULL == pConnection)
-    {
-        return false;
-    }
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
 
-    NFMYSQLTRYBEGIN
-    mysqlpp::Query query = pConnection->query();
-    query << "DELETE FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
+	NFMYSQLTRYBEGIN
+		mysqlpp::Query query = pConnection->query();
+	query << "DELETE FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
 
-    query.execute();
-    query.reset();
-    NFMYSQLTRYEND("delete error")
+	query.execute();
+	query.reset();
+	NFMYSQLTRYEND("delete error")
 
-    return true;
+		return true;
 }
 
 bool NFCMysqlDriver::Exists(const std::string& strRecordName, const std::string& strKey, bool& bExit)
 {
-    mysqlpp::Connection* pConnection = GetConnection();
-    if (NULL == pConnection)
-    {
-        return false;
-    }
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
 
-    NFMYSQLTRYBEGIN
-    mysqlpp::Query query = pConnection->query();
-    query << "SELECT 1 FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << " LIMIT 1;";
+	NFMYSQLTRYBEGIN
+		mysqlpp::Query query = pConnection->query();
+	query << "SELECT 1 FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << " LIMIT 1;";
 
-    //query.execute();
-    mysqlpp::StoreQueryResult result = query.store();
-    query.reset();
+	//query.execute();
+	mysqlpp::StoreQueryResult result = query.store();
+	query.reset();
 
-    if (!result || result.empty())
-    {
-        bExit = false;
-        return true;
-    }
+	if (!result || result.empty())
+	{
+		bExit = false;
+		return true;
+	}
 
-    NFMYSQLTRYEND("exist error")
+	NFMYSQLTRYEND("exist error")
 
-    bExit = true;
-    return true;
+		bExit = true;
+	return true;
 }
 
 bool NFCMysqlDriver::Keys(const std::string& strRecordName, const std::string& strKeyName, std::vector<std::string>& valueVec)
 {
-    mysqlpp::Connection* pConnection = GetConnection();
-    if (NULL == pConnection)
-    {
-        return false;
-    }
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
 
-    const std::string strLikeKey = "%" + strKeyName + "%";
+	const std::string strLikeKey = "%" + strKeyName + "%";
 
-    NFMYSQLTRYBEGIN
-    mysqlpp::Query query = pConnection->query();
-    query << "SELECT " << strDefaultKey << " FROM " << strRecordName << " WHERE " << strDefaultKey << " LIKE " << mysqlpp::quote << strLikeKey << " LIMIT 100;";
+	NFMYSQLTRYBEGIN
+		mysqlpp::Query query = pConnection->query();
+	query << "SELECT " << strDefaultKey << " FROM " << strRecordName << " WHERE " << strDefaultKey << " LIKE " << mysqlpp::quote << strLikeKey << " LIMIT 100;";
 
-    mysqlpp::StoreQueryResult xResult = query.store();
-    query.reset();
+	mysqlpp::StoreQueryResult xResult = query.store();
+	query.reset();
 
-    if (xResult.empty() || !xResult)
-    {
-        return false;
-    }
+	if (xResult.empty() || !xResult)
+	{
+		return false;
+	}
 
-    // xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
-    for (int i = 0; i < xResult.size(); ++i)
-    {
-        std::string strValue(xResult[i][strDefaultKey.data()].data(), xResult[i][strDefaultKey.data()].length());
-        valueVec.push_back(strValue);
-    }
+	// xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
+	for (int i = 0; i < xResult.size(); ++i)
+	{
+		std::string strValue(xResult[i][strDefaultKey.data()].data(), xResult[i][strDefaultKey.data()].length());
+		valueVec.push_back(strValue);
+	}
 
-    NFMYSQLTRYEND("exist error")
+	NFMYSQLTRYEND("exist error")
 
-    return true;
+		return true;
+}
+
+bool NFCMysqlDriver::ExecuteNonQuery(const std::string & strSql, const std::vector<std::string>* pParamVec)
+{
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
+	NFMYSQLTRYBEGIN
+	mysqlpp::Query query = pConnection->query();
+	if (pParamVec)
+	{
+		const std::vector<std::string>& rParamVec = *pParamVec;
+		for (int i = 0; i < rParamVec.size(); i++)
+		{
+			query << "set " << rParamVec[i] << ";";
+		}
+	}
+	query << strSql << ";";
+	bool xResult = query.exec();
+	query.reset();
+	return xResult;
+	NFMYSQLTRYEND("exist error")
+}
+
+bool NFCMysqlDriver::ExecuteScalar(const std::string & strSql, std::string & value)
+{
+	return false;
+}
+
+bool NFCMysqlDriver::ExecuteReader(const std::string & strSql, const std::vector<std::string>* pParamVec, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
+{
+	mysqlpp::Connection* pConnection = GetConnection();
+	if (NULL == pConnection)
+	{
+		return false;
+	}
+	NFMYSQLTRYBEGIN
+	mysqlpp::Query query = pConnection->query();
+	if (pParamVec)
+	{
+		const std::vector<std::string>& rParamVec = *pParamVec;
+		for (int i = 0; i < rParamVec.size(); i++)
+		{
+			query << "set " << rParamVec[i] << ";";
+		}
+	}
+	query << strSql<< ";";
+	mysqlpp::StoreQueryResult xResult = query.store();
+	query.reset();
+
+	if (xResult.empty() || !xResult)
+	{
+		return false;
+	}
+
+	// xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
+	for (int i = 0; i < xResult.size(); ++i)
+	{
+		for (int j = 0; j < xResult.num_fields(); j++)
+		{
+			std::string strValue(xResult[i][j].data(), xResult[i][j].length());
+			valueVec.push_back(strValue);
+		}
+		
+	}
+	NFMYSQLTRYEND("exist error")
+
+	return true;
 }

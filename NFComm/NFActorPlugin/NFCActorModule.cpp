@@ -22,6 +22,7 @@ NFCActorModule::NFCActorModule(NFIPluginManager* p)
 
 NFCActorModule::~NFCActorModule()
 {
+	
     m_pMainActor.reset();
     m_pMainActor = nullptr;
 

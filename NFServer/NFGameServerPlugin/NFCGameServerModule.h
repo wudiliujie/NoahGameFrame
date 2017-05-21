@@ -15,29 +15,30 @@
 #include "NFComm/NFPluginModule/NFIClassModule.h"
 
 class NFCGameServerModule
-    : public NFIGameServerModule
+	: public NFIGameServerModule
 {
 public:
-    NFCGameServerModule(NFIPluginManager* p)
-    {
-        pPluginManager = p;
-    }
-    virtual ~NFCGameServerModule() {};
+	NFCGameServerModule(NFIPluginManager* p)
+	{
+		pPluginManager = p;
+	}
+	virtual ~NFCGameServerModule() {};
 
-    virtual bool Init();
-    virtual bool Shut();
-    virtual bool Execute();
+	virtual bool Init();
+	virtual bool Shut();
+	virtual bool Execute();
 
-    virtual bool AfterInit();
-    virtual bool BeforeShut();
-
-
-protected:
+	virtual bool AfterInit();
+	virtual bool BeforeShut();
 
 
 protected:
-    NFIClassModule* m_pClassModule;
-    NFIKernelModule* m_pKernelModule;
+
+
+protected:
+	NFIClassModule* m_pClassModule;
+	NFIKernelModule* m_pKernelModule;
+
 private:
 };
 

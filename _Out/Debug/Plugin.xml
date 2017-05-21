@@ -3,7 +3,10 @@
 		<Plugin Name="NFNetPlugin" />
 		<Plugin Name="NFKernelPlugin" />
 		<Plugin Name="NFConfigPlugin" />
-		<Plugin Name="NFGameServerPlugin" />
+		<Plugin Name="NFActorPlugin" />		
+		<Plugin Name="NFNoSqlPlugin" />
+		<Plugin Name="NFDataAgent_NosqlPlugin" />		
+		<Plugin Name="NFGameServerPlugin" />		
 		<Plugin Name="NFGameServerNet_ServerPlugin" />
 		<Plugin Name="NFGameServerNet_ClientPlugin" />
 		<Plugin Name="NFLogPlugin" />
@@ -13,9 +16,16 @@
 	<LoginServer>
 		<Plugin Name="NFNetPlugin" />
 		<Plugin Name="NFKernelPlugin" />
-		<Plugin Name="NFConfigPlugin" />	
+		<Plugin Name="NFConfigPlugin" />
+			
+		<Plugin Name="NFActorPlugin" />			
+		<Plugin Name="NFNoSqlPlugin" />
+		<Plugin Name="NFDataAgent_NosqlPlugin" />	
+		
 		<Plugin Name="NFLoginNet_ServerPlugin" />
 		<Plugin Name="NFLoginNet_ClientPlugin" />
+		
+		<Plugin Name="NFLoginLogicPlugin" />
 		<Plugin Name="NFLogPlugin" />
     	<ConfigPath Name="../" />		
 	</LoginServer>

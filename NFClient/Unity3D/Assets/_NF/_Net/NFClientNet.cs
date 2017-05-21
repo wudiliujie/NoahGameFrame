@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace NFTCPClient
 {
@@ -256,6 +257,7 @@ namespace NFTCPClient
             catch (Exception e) { e.ToString(); }
             try { if (mxClient != null) mxClient.Close(); }
             catch (Exception e) { e.ToString(); }
+            Debug.Log("¶Ï¿ªÁ¬½Ó");
 
         }
 

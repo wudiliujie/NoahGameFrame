@@ -35,7 +35,8 @@ public:
     virtual bool Delete(const std::string& strRecordName, const std::string& strKey) = 0;
     virtual bool Exists(const std::string& strRecordName, const std::string& strKey, bool& bExit) = 0;
     virtual bool Keys(const std::string& strRecordName, const std::string& strKeyName, std::vector<std::string>& valueVec) = 0;
-
+	virtual bool ExecuteReader(const std::string& strSql, const std::vector<std::string>* pParamVec, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)=0;
+	virtual bool ExecuteNonQuery(const std::string& strSql, const std::vector<std::string>* pParamVec) = 0;
 private:
 
 };

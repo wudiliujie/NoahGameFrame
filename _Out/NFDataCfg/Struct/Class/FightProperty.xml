@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<XML>
+	<Propertys>
+		<Property Id="Atk_Gold" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="金攻"/>
+		<Property Id="Atk_Wood" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="木攻"/>
+		<Property Id="Atk_Water" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="水攻"/>
+		<Property Id="Atk_Fire" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="火攻"/>
+		<Property Id="Atk_Soil" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="土攻"/>
+		<Property Id="Def_Gold" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="金防"/>
+		<Property Id="Def_Wood" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="木防"/>
+		<Property Id="Def_Water" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="水防"/>
+		<Property Id="Def_Fire" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="火防"/>
+		<Property Id="Def_Soil" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="土防"/>
+		<Property Id="Hit" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="命中"/>
+		<Property Id="Misse" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="闪避"/>
+		<Property Id="Cri" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="暴击"/>
+		<Property Id="Acri" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="防爆"/>
+		<Property Id="Hurt_Add" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="伤害增加(%)"/>
+		<Property Id="Hurt_Reduce" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="伤害减少(%)"/>
+		<Property Id="Move_Speed" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="移动速度,默认单位是10000=1米"/>
+		<Property Id="Atk_Speed" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="攻击速度默认10000"/>
+		<Property Id="Hp_Max" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="最大血量"/>
+		<Property Id="HP_Regen" Type="int" Public="1" Private="1" Save="0" Cache="0" Ref="0" Upload="0" Desc="生命值回复"/>
+	</Propertys>
+	<Records/>
+	<Components/>
+</XML>
+

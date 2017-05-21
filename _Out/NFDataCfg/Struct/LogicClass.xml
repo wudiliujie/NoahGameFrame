@@ -10,6 +10,7 @@
 		<Class Id="DescData" Type="TYPE_DESCDATA" Path="NFDataCfg/Struct/Class/DescData.xml" InstancePath="NFDataCfg/Ini/NPC/DescData.xml" Public="0" Desc="DescData"/>
 		<Class Id="EffectData" Type="TYPE_EFFECTDATA" Path="NFDataCfg/Struct/Class/EffectData.xml" InstancePath="NFDataCfg/Ini/NPC/EffectData.xml" Public="0" Desc="EffectData"/>
 		<Class Id="Equip" Type="TYPE_EQUIP" Path="NFDataCfg/Struct/Class/Equip.xml" InstancePath="NFDataCfg/Ini/NPC/Equip.xml" Public="0" Desc="Equip"/>
+		<Class Id="FightProperty" Type="TYPE_FIGHTPROPERTY" Path="NFDataCfg/Struct/Class/FightProperty.xml" InstancePath="NFDataCfg/Ini/NPC/FightProperty.xml" Public="0" Desc="FightProperty"/>
 		<Class Id="Guild" Type="TYPE_GUILD" Path="NFDataCfg/Struct/Class/Guild.xml" InstancePath="NFDataCfg/Ini/NPC/Guild.xml" Public="0" Desc="Guild"/>
 		<Class Id="GuildConfig" Type="TYPE_GUILDCONFIG" Path="NFDataCfg/Struct/Class/GuildConfig.xml" InstancePath="NFDataCfg/Ini/NPC/GuildConfig.xml" Public="0" Desc="GuildConfig"/>
 		<Class Id="GuildJob" Type="TYPE_GUILDJOB" Path="NFDataCfg/Struct/Class/GuildJob.xml" InstancePath="NFDataCfg/Ini/NPC/GuildJob.xml" Public="0" Desc="GuildJob"/>

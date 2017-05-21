@@ -86,7 +86,9 @@ public:
     virtual bool Delete(const std::string& strRecordName, const std::string& strKey);
     virtual bool Exists(const std::string& strRecordName, const std::string& strKey, bool& bExit);
     virtual bool Keys(const std::string& strRecordName, const std::string& strKeyName, std::vector<std::string>& valueVec);
-
+	virtual bool ExecuteNonQuery(const std::string& strSql, const std::vector<std::string>* pParamVec);
+	virtual bool ExecuteScalar(const std::string& strSql, std::string& value);
+	virtual bool ExecuteReader(const std::string& strSql, const std::vector<std::string>* pParamVec, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec);
 protected:
     bool IsNeedReconnect();
     bool Connect();

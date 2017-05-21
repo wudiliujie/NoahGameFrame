@@ -316,6 +316,44 @@ public class Equip
 
 }
 
+public class FightProperty
+{
+	//Class name
+	public static readonly string ThisName = "FightProperty";
+	// IObject
+	public static readonly String ID = "ID"; // string
+	public static readonly String ClassName = "ClassName"; // string
+	public static readonly String SceneID = "SceneID"; // int
+	public static readonly String GroupID = "GroupID"; // int
+	public static readonly String ConfigID = "ConfigID"; // string
+	public static readonly String X = "X"; // float
+	public static readonly String Y = "Y"; // float
+	public static readonly String Z = "Z"; // float
+	// Property
+	public static readonly String Atk_Gold = "Atk_Gold"; // int
+	public static readonly String Atk_Wood = "Atk_Wood"; // int
+	public static readonly String Atk_Water = "Atk_Water"; // int
+	public static readonly String Atk_Fire = "Atk_Fire"; // int
+	public static readonly String Atk_Soil = "Atk_Soil"; // int
+	public static readonly String Def_Gold = "Def_Gold"; // int
+	public static readonly String Def_Wood = "Def_Wood"; // int
+	public static readonly String Def_Water = "Def_Water"; // int
+	public static readonly String Def_Fire = "Def_Fire"; // int
+	public static readonly String Def_Soil = "Def_Soil"; // int
+	public static readonly String Hit = "Hit"; // int
+	public static readonly String Misse = "Misse"; // int
+	public static readonly String Cri = "Cri"; // int
+	public static readonly String Acri = "Acri"; // int
+	public static readonly String Hurt_Add = "Hurt_Add"; // int
+	public static readonly String Hurt_Reduce = "Hurt_Reduce"; // int
+	public static readonly String Move_Speed = "Move_Speed"; // int
+	public static readonly String Atk_Speed = "Atk_Speed"; // int
+	public static readonly String Hp_Max = "Hp_Max"; // int
+	public static readonly String HP_Regen = "HP_Regen"; // int
+	// Record
+
+}
+
 public class Guild
 {
 	//Class name

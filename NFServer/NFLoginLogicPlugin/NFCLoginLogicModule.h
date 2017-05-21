@@ -17,29 +17,35 @@
 #include "NFComm/NFPluginModule/NFILogModule.h"
 #include "NFComm/NFPluginModule/NFINetModule.h"
 #include "NFComm/NFPluginModule/NFIAccountRedisModule.h"
+#include "NFComm/NFPluginModule/NFIMysqlModule.h"
+#include "NFComm/NFPluginModule/NFIElementModule.h"
+#include "NFComm/NFMessageDefine/NFProtocolDefine.hpp"
 
 class NFCLoginLogicModule
-    : public NFILoginLogicModule
+	: public NFILoginLogicModule
 {
 public:
-    NFCLoginLogicModule(NFIPluginManager* p)
-    {
-        pPluginManager = p;
-    }
+	NFCLoginLogicModule(NFIPluginManager* p)
+	{
+		pPluginManager = p;
+	}
 
-    virtual bool Init();
-    virtual bool Shut();
-    virtual bool ReadyExecute();
-    virtual bool Execute();
+	virtual bool Init();
+	virtual bool Shut();
+	virtual bool ReadyExecute();
+	virtual bool Execute();
 
-    virtual bool AfterInit();
+	virtual bool AfterInit();
 
-    virtual void OnLoginProcess(const int nSockIndex, const int nMsgID, const char* msg, const uint32_t nLen);
+	virtual void OnLoginProcess(const int nSockIndex, const int nMsgID, const char* msg, const uint32_t nLen);
 
 protected:
 	NFINetModule* m_pNetModule;
 	NFILogModule* m_pLogModule;
 	NFIAccountRedisModule* m_pAccountRedisModule;
+	NFIMysqlModule* m_pMysqlModule;
+	NFIElementModule* m_pElementModule;
+	NFIKernelModule* m_pKernelModule;
 private:
 };
 
