@@ -17,53 +17,53 @@
 #include "NFComm/NFPluginModule/NFIPluginManager.h"
 
 class NFCPluginManager
-    : public NFIPluginManager,
+	: public NFIPluginManager,
 	public NFSingleton<NFCPluginManager>
 {
 public:
-    NFCPluginManager();
-    virtual ~NFCPluginManager();
+	NFCPluginManager();
+	virtual ~NFCPluginManager();
 
 	virtual bool Awake();
 
 	virtual bool Init();
 
-    virtual bool AfterInit();
+	virtual bool AfterInit();
 
-    virtual bool CheckConfig();
+	virtual bool CheckConfig();
 
-    virtual bool ReadyExecute();
+	virtual bool ReadyExecute();
 
-    virtual bool BeforeShut();
+	virtual bool BeforeShut();
 
 	virtual bool Shut();
 
 	virtual bool Finalize();
 
 
-    //////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
 
-    virtual void Registered(NFIPlugin* pPlugin);
+	virtual void Registered(NFIPlugin* pPlugin);
 
-    virtual void UnRegistered(NFIPlugin* pPlugin);
+	virtual void UnRegistered(NFIPlugin* pPlugin);
 
-    //////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
 
 	virtual bool ReLoadPlugin(const std::string& strPluginDLLName);
 
-    virtual NFIPlugin* FindPlugin(const std::string& strPluginName);
+	virtual NFIPlugin* FindPlugin(const std::string& strPluginName);
 
-    virtual void AddModule(const std::string& strModuleName, NFIModule* pModule);
+	virtual void AddModule(const std::string& strModuleName, NFIModule* pModule);
 
-    virtual void RemoveModule(const std::string& strModuleName);
+	virtual void RemoveModule(const std::string& strModuleName);
 
-    virtual NFIModule* FindModule(const std::string& strModuleName);
+	virtual NFIModule* FindModule(const std::string& strModuleName);
 
-    virtual bool Execute();
+	virtual bool Execute();
 
 	virtual int GetAppID() const;
 
-    virtual void SetAppID(const int nAppID);
+	virtual void SetAppID(const int nAppID);
 
 	virtual NFINT64 GetInitTime() const;
 
@@ -84,37 +84,40 @@ public:
 	virtual void SetGetFileContentFunctor(GET_FILECONTENT_FUNCTOR fun);
 
 	virtual bool GetFileContent(const std::string &strFileName, std::string &strContent);
-
+	virtual void GetConfigValue(const std::string& strName, std::string& strValue, const std::string& strDefaultValue="");
+	virtual void GetConfigValue(const std::string& strName, int& nValue, int nDefaultValue = 0);
 protected:
 	bool LoadPluginConfig();
 
 	bool LoadStaticPlugin(const std::string& strPluginDLLName);
-    bool LoadPluginLibrary(const std::string& strPluginDLLName);
-    bool UnLoadPluginLibrary(const std::string& strPluginDLLName);
+	bool LoadPluginLibrary(const std::string& strPluginDLLName);
+	bool UnLoadPluginLibrary(const std::string& strPluginDLLName);
 	bool UnLoadStaticPlugin(const std::string& strPluginDLLName);
 
 private:
-    int mnAppID;
-    NFINT64 mnInitTime;
-    NFINT64 mnNowTime;
-    std::string mstrConfigPath;
+	int mnAppID;
+	NFINT64 mnInitTime;
+	NFINT64 mnNowTime;
+	std::string mstrConfigPath;
 	std::string mstrConfigName;
 	std::string mstrAppName;
 	std::string mstrLogConfigName;
 
-    typedef std::map<std::string, bool> PluginNameMap;
-    typedef std::map<std::string, NFCDynLib*> PluginLibMap;
-    typedef std::map<std::string, NFIPlugin*> PluginInstanceMap;
-    typedef std::map<std::string, NFIModule*> ModuleInstanceMap;
+	typedef std::map<std::string, bool> PluginNameMap;
+	typedef std::map<std::string, NFCDynLib*> PluginLibMap;
+	typedef std::map<std::string, NFIPlugin*> PluginInstanceMap;
+	typedef std::map<std::string, NFIModule*> ModuleInstanceMap;
+	typedef std::map<std::string, std::string> ConfigMap;
 
-    typedef void(* DLL_START_PLUGIN_FUNC)(NFIPluginManager* pm);
-    typedef void(* DLL_STOP_PLUGIN_FUNC)(NFIPluginManager* pm);
+	typedef void(*DLL_START_PLUGIN_FUNC)(NFIPluginManager* pm);
+	typedef void(*DLL_STOP_PLUGIN_FUNC)(NFIPluginManager* pm);
 
-    PluginNameMap mPluginNameMap;
-    PluginLibMap mPluginLibMap;
-    PluginInstanceMap mPluginInstanceMap;
-    ModuleInstanceMap mModuleInstanceMap;
-
+	PluginNameMap mPluginNameMap;
+	PluginLibMap mPluginLibMap;
+	PluginInstanceMap mPluginInstanceMap;
+	ModuleInstanceMap mModuleInstanceMap;
+	//≈‰÷√–≈œ¢
+	ConfigMap mConfigMap;
 	GET_FILECONTENT_FUNCTOR mGetFileContentFunctor;
 };
 

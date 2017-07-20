@@ -21,187 +21,142 @@
 struct SMysqlBaseParam
 {
 public:
-    SMysqlBaseParam()
-    {
-        nRet = 0;
-        nReqID = 0;
-        bExit = 0;
-    }
+	SMysqlBaseParam()
+	{
+		nRet = 0;
+		nReqID = 0;
+		bExit = 0;
+	}
 
 public:
-    bool PackParam(std::string& strData);
-    bool UnPackParam(const std::string& strData);
+	bool PackParam(std::string& strData);
+	bool UnPackParam(const std::string& strData);
 
-    std::string strRecordName;
-    std::string strKey;
-    std::vector<std::string> fieldVec;
-    std::vector<std::string> valueVec;
-    int bExit;
-    int  nRet;
-    int  nReqID;
-    std::string mstrUseData;
-    NFGUID self;
-    NFIAsyMysqlModule::ACOTERMYSQLEVENT eType;
+	std::string strSql;
+	std::vector<std::string> fieldVec;
+	std::vector<std::string> valueVec;
+	int bExit;
+	int  nRet;
+	int  nReqID;
+	std::string mstrUseData;
+	NFGUID self;
+	NFIAsyMysqlModule::ACOTERMYSQLEVENT eType;
 
-    virtual int GetType() { return eType; };
+	virtual int GetType() { return eType; };
 };
 
-struct SMysqlUpDataParam : public SMysqlBaseParam
+struct SMysqlExecuteNonQueryParam : public SMysqlBaseParam
 {
-    SMysqlUpDataParam()
-    {
-        eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_UPDATA;
-    }
+	SMysqlExecuteNonQueryParam()
+	{
+		eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_EXECUTENONQUERY;
+	}
 public:
-    MYSQL_RETURN_FUNCTOR mFunReturnRsp;
+	MYSQL_RETURN_FUNCTOR mFunReturnRsp;
 };
 
-struct SMysqlQueryParam : public SMysqlBaseParam
+struct SMysqlExecuteScalarParam : public SMysqlBaseParam
 {
-    SMysqlQueryParam()
-    {
-        eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_QUERY;
-    }
+	SMysqlExecuteScalarParam()
+	{
+		eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_EXECUTESCALAR;
+	}
 
 public:
-    MYSQL_RETURN_VECKEY_VECVALUE_FUNCTOR mFunReturnVeckKeyValueRsp;
+	MYSQL_RETURN_VECVALUE_FUNCTOR mFunReturnVecValueRsp;
 };
 
-struct SMysqlSelectParam : public SMysqlBaseParam
+struct SMysqlExecuteReaderParam : public SMysqlBaseParam
 {
-    SMysqlSelectParam()
-    {
-        eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_SELECT;
-    }
+	SMysqlExecuteReaderParam()
+	{
+		eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_EXECUTEREADER;
+	}
 
 public:
-    MYSQL_RETURN_VECKEY_VECVALUE_FUNCTOR mFunReturnVeckKeyValueRsp;
+	MYSQL_RETURN_VECKEY_VECVALUE_FUNCTOR mFunReturnVeckKeyValueRsp;
 };
 
-struct SMysqlDeleteParam : public SMysqlBaseParam
-{
-    SMysqlDeleteParam()
-    {
-        eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_DELETE;
-    }
-
-public:
-    MYSQL_RETURN_FUNCTOR mFunReturnRsp;
-};
-
-struct SMysqlExistsParam : public SMysqlBaseParam
-{
-    SMysqlExistsParam()
-    {
-        eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_EXISTS;
-    }
-
-public:
-    MYSQL_RETURN_INT_FUNCTOR mFunReturnIntRsp;
-};
-
-struct SMysqlKeysParam : public SMysqlBaseParam
-{
-    SMysqlKeysParam()
-    {
-        eType = NFIAsyMysqlModule::ACOTERMYSQLEVENT_KEYS;
-    }
-
-public:
-    MYSQL_RETURN_VECVALUE_FUNCTOR mFunReturnVecValueRsp;
-};
 
 class NFCMysqlComponent : public NFIComponent
 {
 public:
-    NFCMysqlComponent(NFGUID self, const std::string& strName): NFIComponent(self, strName)
-    {
-    }
+	NFCMysqlComponent(NFGUID self, const std::string& strName) : NFIComponent(self, strName)
+	{
+	}
 
-    NFCMysqlComponent(NFIPluginManager* pPluginManager): NFIComponent(NFGUID(), "")
-    {
-    }
+	NFCMysqlComponent(NFIPluginManager* pPluginManager) : NFIComponent(NFGUID(), "")
+	{
+	}
 
-    virtual ~NFCMysqlComponent()
-    {
+	virtual ~NFCMysqlComponent()
+	{
 
-    }
+	}
 
-    virtual bool Init();
-    virtual bool AfterInit();
-    virtual int OnASyncEvent(const NFGUID& self, const int event, std::string& arg);
+	virtual bool Init();
+	virtual bool AfterInit();
+	virtual int OnASyncEvent(const NFGUID& self, const int event, std::string& arg);
 
-    int OnASyUpdataMysqlEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASyQueryMysqlEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASySelectMysqlEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASyDeleteMysqlEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASyExistsMysqlEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASyKeysMysqlEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASyAddMysqlServerEvent(const NFGUID& self, const int event, std::string& arg);
-    int OnASyKeepServerAliveEvent(const NFGUID& self, const int event, std::string& arg);
+	int OnASyAddMysqlServerEvent(const NFGUID& self, const int event, std::string& arg);
+	int OnASyKeepServerAliveEvent(const NFGUID& self, const int event, std::string& arg);
+	int OnASyExecuteNonQueryMysqlEvent(const NFGUID& self, const int event, std::string& arg);
+	int OnASyExecuteScalarMysqlEvent(const NFGUID& self, const int event, std::string& arg);
+	int OnASyExecuteReaderMysqlEvent(const NFGUID& self, const int event, std::string& arg);
 
 protected:
-    virtual NF_SHARE_PTR<NFIComponent> CreateNewInstance();
+	virtual NF_SHARE_PTR<NFIComponent> CreateNewInstance();
 
-    NF_SHARE_PTR<NFIMysqlDriverManager> m_pMysqlDriverManager;
+	NF_SHARE_PTR<NFIMysqlDriverManager> m_pMysqlDriverManager;
 };
 
 
 class NFCAsyMysqlModule
-    : public NFIAsyMysqlModule
+	: public NFIAsyMysqlModule
 {
 public:
 
-    NFCAsyMysqlModule(NFIPluginManager* p);
-    virtual ~NFCAsyMysqlModule();
+	NFCAsyMysqlModule(NFIPluginManager* p);
+	virtual ~NFCAsyMysqlModule();
 
-    virtual bool Init();
-    virtual bool Shut();
-    virtual bool Execute();
-    virtual bool AfterInit();
+	virtual bool Init();
+	virtual bool Shut();
+	virtual bool Execute();
+	virtual bool AfterInit();
+	virtual bool StartActorPool(const int nCount);
+	virtual bool CloseActorPool();
 
-    virtual bool Updata(const NFGUID& self, const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec, const MYSQL_RETURN_FUNCTOR& mFunReturnRsp, const std::string& strUseData);
-    virtual bool Query(const NFGUID& self, const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const MYSQL_RETURN_VECKEY_VECVALUE_FUNCTOR& mFunReturnVeckKeyValueRsp, const std::string& strUseData);
-    virtual bool Select(const NFGUID& self, const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const MYSQL_RETURN_VECKEY_VECVALUE_FUNCTOR& mFunReturnVeckKeyValueRsp, const std::string& strUseData);
+	virtual bool AddMysqlServer(const int nServerID, const std::string& strDns, const std::string& strIP, const int nPort, const std::string strDBName, const std::string strDBUser, const std::string strDBPwd, const int nRconnectTime = 10, const int nRconneCount = -1);
 
-    virtual bool Delete(const NFGUID& self, const std::string& strRecordName, const std::string& strKey, const MYSQL_RETURN_FUNCTOR& mFunReturnRsp, const std::string& strUseData);
-    virtual bool Exists(const NFGUID& self, const std::string& strRecordName, const std::string& strKey, const MYSQL_RETURN_INT_FUNCTOR& mFunReturnIntRsp, const std::string& strUseData);
-    virtual bool Keys(const NFGUID& self, const std::string& strRecordName, const std::string& strKeyName, const MYSQL_RETURN_VECVALUE_FUNCTOR& mFunReturnVecValueRsp, const std::string& strUseData);
+	virtual bool ExecuteNonQuery(const NFGUID& self, const std::string& strSQL, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec, const MYSQL_RETURN_FUNCTOR& mFunReturnRsp, const std::string& strUseData);
+	virtual bool ExecuteScalar(const NFGUID& self, const std::string& strSQL, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec, const MYSQL_RETURN_VECVALUE_FUNCTOR& mFunReturnRsp, const std::string& strUseData);
+	virtual bool ExecuteReader(const NFGUID& self, const std::string& strSQL, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec, const MYSQL_RETURN_VECKEY_VECVALUE_FUNCTOR& mFunReturnRsp, const std::string& strUseData);
 
-    virtual bool StartActorPool(const int nCount);
-    virtual bool CloseActorPool();
-
-    virtual bool AddMysqlServer(const int nServerID, const std::string& strDns, const std::string& strIP, const int nPort, const std::string strDBName, const std::string strDBUser, const std::string strDBPwd, const int nRconnectTime = 10, const int nRconneCount = -1);
 
 protected:
-    int ApplyRequest(NF_SHARE_PTR<SMysqlBaseParam> pParam, const int nEvetID);
-    int RequestAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
+	int ApplyRequest(NF_SHARE_PTR<SMysqlBaseParam> pParam, const int nEvetID);
+	int RequestAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
 
-    int OnUpDataMysqlAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnQueryMysqlAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnSelectMysqlAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnDeleteMysqlAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnExistsMysqlAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnUpKeyMysqlAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnAddMysqlServerAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
-    int OnKeepServerAliveAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
+	
+	int OnAddMysqlServerAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
+	int OnKeepServerAliveAsyEnd(const NFGUID& self, const int nFormActor, const int nEventID, const std::string& strData);
 
-    int GetActor();
-    bool KeepAliveMysqlServer();
+	int GetActor();
+	bool KeepAliveMysqlServer();
 
-    template<typename ClassParam>
-    ClassParam* UnpackResult(const std::string& strMsgData);
+	template<typename ClassParam>
+	ClassParam* UnpackResult(const std::string& strMsgData);
 
 private:
-    static std::string strDefaultKey;
-    static std::string strDefaultTable;
+	static std::string strDefaultKey;
+	static std::string strDefaultTable;
 
 private:
-    NFMapEx<int, int> mActorList; //actorid <-->Used
-    NFMapEx<int, SMysqlBaseParam> mReqList;// reqID <-->Param
-    int nCurReqID;
-    int mnSuitIndex;
-    NFINT64 mnLastCheckTime;
+	NFMapEx<int, int> mActorList; //actorid <-->Used
+	NFMapEx<int, SMysqlBaseParam> mReqList;// reqID <-->Param
+	int nCurReqID;
+	int mnSuitIndex;
+	NFINT64 mnLastCheckTime;
 
 	NFIActorModule* m_pActorModule;
 };

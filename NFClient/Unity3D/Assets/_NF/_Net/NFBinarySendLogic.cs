@@ -261,22 +261,27 @@ public class NFBinarySendLogic
         }
         else
         {
-            NFMsg.ReqAccountLogin xData = new NFMsg.ReqAccountLogin();
-            xData.account = System.Text.Encoding.Default.GetBytes(strAccount);
-            xData.password = System.Text.Encoding.Default.GetBytes(strPassword);
-            xData.security_code = System.Text.Encoding.Default.GetBytes(strSessionKey);
-            xData.signBuff = System.Text.Encoding.Default.GetBytes("");
-            xData.clientVersion = 1;
-            xData.loginMode = 0;
-            xData.clientIP = 0;
-            xData.clientMAC = 0;
-            xData.device_info = System.Text.Encoding.Default.GetBytes("");
-            xData.extra_info = System.Text.Encoding.Default.GetBytes("");
+            NFGUID id = new NFGUID(1, 1);
+            NFMsg.CSLogin xData = new NFMsg.CSLogin();
+            xData.accountid = NFToPB(id);
+            xData.timestamp = 1234561;
+            string str = string.Format("{0}{1}{2}", id.ToString(), xData.timestamp, "111111");
+            xData.sign = System.Text.Encoding.Default.GetBytes(Md5.Md5Sum(str));
+            //xData.account = System.Text.Encoding.Default.GetBytes(strAccount);
+            //xData.password = System.Text.Encoding.Default.GetBytes(strPassword);
+            //xData.security_code = System.Text.Encoding.Default.GetBytes(strSessionKey);
+            //xData.signBuff = System.Text.Encoding.Default.GetBytes("");
+            //xData.clientVersion = 1;
+            //xData.loginMode = 0;
+            //xData.clientIP = 0;
+            //xData.clientMAC = 0;
+            //xData.device_info = System.Text.Encoding.Default.GetBytes("");
+            //xData.extra_info = System.Text.Encoding.Default.GetBytes("");
 
             MemoryStream stream = new MemoryStream();
-            Serializer.Serialize<NFMsg.ReqAccountLogin>(stream, xData);
+            Serializer.Serialize<NFMsg.CSLogin>(stream, xData);
 
-            SendMsg(new NFrame.NFGUID(), NFMsg.EGameMsgID.EGMI_REQ_LOGIN, stream);
+            SendMsg(new NFrame.NFGUID(), NFMsg.EGameMsgID.CS_LOGIN, stream);
         }
     }
 
@@ -422,7 +427,7 @@ public class NFBinarySendLogic
         xData.mover = NFToPB(objectID);
         xData.moveType = 0;
 
-        NFMsg.Position xTargetPos = new NFMsg.Position();
+        NFMsg.Vector3 xTargetPos = new NFMsg.Vector3();
         xTargetPos.x = fX;
         xTargetPos.z = fZ;
         xData.target_pos.Add(xTargetPos);
@@ -438,7 +443,7 @@ public class NFBinarySendLogic
         NFMsg.ReqAckPlayerMove xData = new NFMsg.ReqAckPlayerMove();
         xData.mover = NFToPB(objectID);
         xData.moveType = 0;
-        NFMsg.Position xTargetPos = new NFMsg.Position();
+        NFMsg.Vector3 xTargetPos = new NFMsg.Vector3();
         xTargetPos.x = fX;
         xTargetPos.z = fZ;
         xData.target_pos.Add(xTargetPos);
@@ -452,8 +457,8 @@ public class NFBinarySendLogic
     //有可能是他副本的NPC移动,因此增加64对象ID
     public void RequireUseSkill(NFrame.NFGUID objectID, string strKillID, NFrame.NFGUID nTargetID, float fNowX, float fNowZ, float fTarX, float fTarZ)
     {
-        NFMsg.Position xNowPos = new NFMsg.Position();
-        NFMsg.Position xTarPos = new NFMsg.Position();
+        NFMsg.Vector3 xNowPos = new NFMsg.Vector3();
+        NFMsg.Vector3 xTarPos = new NFMsg.Vector3();
 
         xNowPos.x = fNowX;
         xNowPos.y = 0.0f;
@@ -652,9 +657,9 @@ public class NFBinarySendLogic
         NFIObject xObject = NFCKernelModule.Instance.GetObject(self);
         NFIRecord xRecord = xObject.GetRecordManager().GetRecord(strRecordName);
         NFIDataList xRowData = xRecord.QueryRow(nRow);
-        for(int i = 0;i<xRowData.Count();i++)
+        for (int i = 0; i < xRowData.Count(); i++)
         {
-            switch(xRowData.GetType(i))
+            switch (xRowData.GetType(i))
             {
                 case NFIDataList.VARIANT_TYPE.VTYPE_INT:
                     {

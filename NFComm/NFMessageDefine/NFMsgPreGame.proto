@@ -5,6 +5,21 @@ import "NFMsgBase.proto";
 
 //这里主要是与游戏内容关系不是很大的协议，比如登录，创建角色，平台扣费等
 
+////////////////////////////////////////////////////
+message CSLogin//请求登录
+{ 
+	required Ident			accountid		= 1;	//账号
+	required int32 			timestamp		= 2;	//时间戳
+	required bytes 			sign			= 3;	//签名
+}
+message SCLogin//请求登录返回
+{ 
+	required int32			tag				= 1;	//结果
+}
+message SCRoleInfo//返回角色信息
+{ 
+	required int32			info				= 1;	//
+}
 
 enum EServerState
 {

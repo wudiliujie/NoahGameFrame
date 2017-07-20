@@ -17,7 +17,7 @@
 #include "NFComm/NFPluginModule/NFILogModule.h"
 #include "NFComm/NFPluginModule/NFINetModule.h"
 #include "NFComm/NFPluginModule/NFIAccountRedisModule.h"
-#include "NFComm/NFPluginModule/NFIMysqlModule.h"
+#include "NFComm/NFPluginModule/NFIAsyMysqlModule.h"
 #include "NFComm/NFPluginModule/NFIElementModule.h"
 #include "NFComm/NFMessageDefine/NFProtocolDefine.hpp"
 
@@ -43,10 +43,12 @@ protected:
 	NFINetModule* m_pNetModule;
 	NFILogModule* m_pLogModule;
 	NFIAccountRedisModule* m_pAccountRedisModule;
-	NFIMysqlModule* m_pMysqlModule;
+	NFIAsyMysqlModule* m_pAsyMysqlModule;
 	NFIElementModule* m_pElementModule;
-	NFIKernelModule* m_pKernelModule;
+	NFIKernelModule* m_pKernelModule;	
 private:
+	virtual int VerifyAccount(const std::string& strAccount, const std::string& strPwd);
+	virtual bool AddAccount(const std::string& strAccount, const std::string& strPwd) { return false; };
 };
 
 #endif

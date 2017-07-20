@@ -36,6 +36,9 @@ void LIBPROTOC_EXPORT protobuf_AddDesc_NFMsgPreGame_2eproto();
 void protobuf_AssignDesc_NFMsgPreGame_2eproto();
 void protobuf_ShutdownFile_NFMsgPreGame_2eproto();
 
+class CSLogin;
+class SCLogin;
+class SCRoleInfo;
 class ServerInfoExt;
 class ServerInfoReport;
 class ServerInfoReportList;
@@ -101,6 +104,279 @@ inline bool ReqServerListType_Parse(
     ReqServerListType_descriptor(), name, value);
 }
 // ===================================================================
+
+class LIBPROTOC_EXPORT CSLogin : public ::google::protobuf::Message {
+ public:
+  CSLogin();
+  virtual ~CSLogin();
+
+  CSLogin(const CSLogin& from);
+
+  inline CSLogin& operator=(const CSLogin& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CSLogin& default_instance();
+
+  void Swap(CSLogin* other);
+
+  // implements Message ----------------------------------------------
+
+  CSLogin* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CSLogin& from);
+  void MergeFrom(const CSLogin& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .NFMsg.Ident accountid = 1;
+  inline bool has_accountid() const;
+  inline void clear_accountid();
+  static const int kAccountidFieldNumber = 1;
+  inline const ::NFMsg::Ident& accountid() const;
+  inline ::NFMsg::Ident* mutable_accountid();
+  inline ::NFMsg::Ident* release_accountid();
+  inline void set_allocated_accountid(::NFMsg::Ident* accountid);
+
+  // required int32 timestamp = 2;
+  inline bool has_timestamp() const;
+  inline void clear_timestamp();
+  static const int kTimestampFieldNumber = 2;
+  inline ::google::protobuf::int32 timestamp() const;
+  inline void set_timestamp(::google::protobuf::int32 value);
+
+  // required bytes sign = 3;
+  inline bool has_sign() const;
+  inline void clear_sign();
+  static const int kSignFieldNumber = 3;
+  inline const ::std::string& sign() const;
+  inline void set_sign(const ::std::string& value);
+  inline void set_sign(const char* value);
+  inline void set_sign(const void* value, size_t size);
+  inline ::std::string* mutable_sign();
+  inline ::std::string* release_sign();
+  inline void set_allocated_sign(::std::string* sign);
+
+  // @@protoc_insertion_point(class_scope:NFMsg.CSLogin)
+ private:
+  inline void set_has_accountid();
+  inline void clear_has_accountid();
+  inline void set_has_timestamp();
+  inline void clear_has_timestamp();
+  inline void set_has_sign();
+  inline void clear_has_sign();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::NFMsg::Ident* accountid_;
+  ::std::string* sign_;
+  ::google::protobuf::int32 timestamp_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void LIBPROTOC_EXPORT protobuf_AddDesc_NFMsgPreGame_2eproto();
+  friend void protobuf_AssignDesc_NFMsgPreGame_2eproto();
+  friend void protobuf_ShutdownFile_NFMsgPreGame_2eproto();
+
+  void InitAsDefaultInstance();
+  static CSLogin* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class LIBPROTOC_EXPORT SCLogin : public ::google::protobuf::Message {
+ public:
+  SCLogin();
+  virtual ~SCLogin();
+
+  SCLogin(const SCLogin& from);
+
+  inline SCLogin& operator=(const SCLogin& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SCLogin& default_instance();
+
+  void Swap(SCLogin* other);
+
+  // implements Message ----------------------------------------------
+
+  SCLogin* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SCLogin& from);
+  void MergeFrom(const SCLogin& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int32 tag = 1;
+  inline bool has_tag() const;
+  inline void clear_tag();
+  static const int kTagFieldNumber = 1;
+  inline ::google::protobuf::int32 tag() const;
+  inline void set_tag(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:NFMsg.SCLogin)
+ private:
+  inline void set_has_tag();
+  inline void clear_has_tag();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::int32 tag_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void LIBPROTOC_EXPORT protobuf_AddDesc_NFMsgPreGame_2eproto();
+  friend void protobuf_AssignDesc_NFMsgPreGame_2eproto();
+  friend void protobuf_ShutdownFile_NFMsgPreGame_2eproto();
+
+  void InitAsDefaultInstance();
+  static SCLogin* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class LIBPROTOC_EXPORT SCRoleInfo : public ::google::protobuf::Message {
+ public:
+  SCRoleInfo();
+  virtual ~SCRoleInfo();
+
+  SCRoleInfo(const SCRoleInfo& from);
+
+  inline SCRoleInfo& operator=(const SCRoleInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SCRoleInfo& default_instance();
+
+  void Swap(SCRoleInfo* other);
+
+  // implements Message ----------------------------------------------
+
+  SCRoleInfo* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SCRoleInfo& from);
+  void MergeFrom(const SCRoleInfo& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int32 info = 1;
+  inline bool has_info() const;
+  inline void clear_info();
+  static const int kInfoFieldNumber = 1;
+  inline ::google::protobuf::int32 info() const;
+  inline void set_info(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:NFMsg.SCRoleInfo)
+ private:
+  inline void set_has_info();
+  inline void clear_has_info();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::int32 info_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void LIBPROTOC_EXPORT protobuf_AddDesc_NFMsgPreGame_2eproto();
+  friend void protobuf_AssignDesc_NFMsgPreGame_2eproto();
+  friend void protobuf_ShutdownFile_NFMsgPreGame_2eproto();
+
+  void InitAsDefaultInstance();
+  static SCRoleInfo* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class LIBPROTOC_EXPORT ServerInfoExt : public ::google::protobuf::Message {
  public:
@@ -2642,6 +2918,192 @@ class LIBPROTOC_EXPORT RoleOfflineNotify : public ::google::protobuf::Message {
 
 
 // ===================================================================
+
+// CSLogin
+
+// required .NFMsg.Ident accountid = 1;
+inline bool CSLogin::has_accountid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CSLogin::set_has_accountid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CSLogin::clear_has_accountid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CSLogin::clear_accountid() {
+  if (accountid_ != NULL) accountid_->::NFMsg::Ident::Clear();
+  clear_has_accountid();
+}
+inline const ::NFMsg::Ident& CSLogin::accountid() const {
+  return accountid_ != NULL ? *accountid_ : *default_instance_->accountid_;
+}
+inline ::NFMsg::Ident* CSLogin::mutable_accountid() {
+  set_has_accountid();
+  if (accountid_ == NULL) accountid_ = new ::NFMsg::Ident;
+  return accountid_;
+}
+inline ::NFMsg::Ident* CSLogin::release_accountid() {
+  clear_has_accountid();
+  ::NFMsg::Ident* temp = accountid_;
+  accountid_ = NULL;
+  return temp;
+}
+inline void CSLogin::set_allocated_accountid(::NFMsg::Ident* accountid) {
+  delete accountid_;
+  accountid_ = accountid;
+  if (accountid) {
+    set_has_accountid();
+  } else {
+    clear_has_accountid();
+  }
+}
+
+// required int32 timestamp = 2;
+inline bool CSLogin::has_timestamp() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CSLogin::set_has_timestamp() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CSLogin::clear_has_timestamp() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CSLogin::clear_timestamp() {
+  timestamp_ = 0;
+  clear_has_timestamp();
+}
+inline ::google::protobuf::int32 CSLogin::timestamp() const {
+  return timestamp_;
+}
+inline void CSLogin::set_timestamp(::google::protobuf::int32 value) {
+  set_has_timestamp();
+  timestamp_ = value;
+}
+
+// required bytes sign = 3;
+inline bool CSLogin::has_sign() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CSLogin::set_has_sign() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CSLogin::clear_has_sign() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CSLogin::clear_sign() {
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    sign_->clear();
+  }
+  clear_has_sign();
+}
+inline const ::std::string& CSLogin::sign() const {
+  return *sign_;
+}
+inline void CSLogin::set_sign(const ::std::string& value) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(value);
+}
+inline void CSLogin::set_sign(const char* value) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(value);
+}
+inline void CSLogin::set_sign(const void* value, size_t size) {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  sign_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* CSLogin::mutable_sign() {
+  set_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    sign_ = new ::std::string;
+  }
+  return sign_;
+}
+inline ::std::string* CSLogin::release_sign() {
+  clear_has_sign();
+  if (sign_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = sign_;
+    sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void CSLogin::set_allocated_sign(::std::string* sign) {
+  if (sign_ != &::google::protobuf::internal::kEmptyString) {
+    delete sign_;
+  }
+  if (sign) {
+    set_has_sign();
+    sign_ = sign;
+  } else {
+    clear_has_sign();
+    sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// SCLogin
+
+// required int32 tag = 1;
+inline bool SCLogin::has_tag() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SCLogin::set_has_tag() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SCLogin::clear_has_tag() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SCLogin::clear_tag() {
+  tag_ = 0;
+  clear_has_tag();
+}
+inline ::google::protobuf::int32 SCLogin::tag() const {
+  return tag_;
+}
+inline void SCLogin::set_tag(::google::protobuf::int32 value) {
+  set_has_tag();
+  tag_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// SCRoleInfo
+
+// required int32 info = 1;
+inline bool SCRoleInfo::has_info() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void SCRoleInfo::set_has_info() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void SCRoleInfo::clear_has_info() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void SCRoleInfo::clear_info() {
+  info_ = 0;
+  clear_has_info();
+}
+inline ::google::protobuf::int32 SCRoleInfo::info() const {
+  return info_;
+}
+inline void SCRoleInfo::set_info(::google::protobuf::int32 value) {
+  set_has_info();
+  info_ = value;
+}
+
+// -------------------------------------------------------------------
 
 // ServerInfoExt
 

@@ -3,14 +3,15 @@
 		<Plugin Name="NFNetPlugin" />
 		<Plugin Name="NFKernelPlugin" />
 		<Plugin Name="NFConfigPlugin" />
-		<Plugin Name="NFActorPlugin" />		
-		<Plugin Name="NFNoSqlPlugin" />
-		<Plugin Name="NFDataAgent_NosqlPlugin" />		
-		<Plugin Name="NFGameServerPlugin" />		
-		<Plugin Name="NFGameServerNet_ServerPlugin" />
-		<Plugin Name="NFGameServerNet_ClientPlugin" />
+		<Plugin Name="NFActorPlugin" />				
+		<Plugin Name="NFMysqlPlugin" />		
+		<Plugin Name="LJGameLogicPlugin" />
 		<Plugin Name="NFLogPlugin" />
-    	<ConfigPath Name="../" />		
+    	<ConfigPath Name="../" />
+		<Config Name="IP" Value="127.0.0.1"/>
+		<Config Name="Port" Value="9991"/>
+		<Config Name="MaxConnect" Value="64"/>
+		
 	</GameServer>
 
 	<LoginServer>
@@ -49,7 +50,8 @@
 		<Plugin Name="NFProxyServerNet_ClientPlugin" />
 		<Plugin Name="NFProxyServerNet_ServerPlugin" />
 		<Plugin Name="NFLogPlugin" />
-    	<ConfigPath Name="../" />				
+    	<ConfigPath Name="../" />	
+		<Config Name="DbIp" Value="127.0.01" />
 	</ProxyServer>
 
 	<WorldServer>

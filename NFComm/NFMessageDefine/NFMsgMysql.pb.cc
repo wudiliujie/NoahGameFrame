@@ -37,9 +37,8 @@ void protobuf_AssignDesc_NFMsgMysql_2eproto() {
       "NFMsgMysql.proto");
   GOOGLE_CHECK(file != NULL);
   PackMysqlParam_descriptor_ = file->message_type(0);
-  static const int PackMysqlParam_offsets_[8] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PackMysqlParam, strrecordname_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PackMysqlParam, strkey_),
+  static const int PackMysqlParam_offsets_[7] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PackMysqlParam, strsql_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PackMysqlParam, fieldveclist_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PackMysqlParam, valueveclist_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PackMysqlParam, bexit_),
@@ -114,16 +113,15 @@ void protobuf_AddDesc_NFMsgMysql_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020NFMsgMysql.proto\022\005NFMsg\"\237\001\n\016PackMysqlP"
-    "aram\022\025\n\rstrRecordName\030\001 \002(\014\022\016\n\006strKey\030\002 "
-    "\002(\014\022\024\n\014fieldVecList\030\003 \003(\014\022\024\n\014valueVecLis"
-    "t\030\004 \003(\014\022\r\n\005bExit\030\005 \002(\003\022\016\n\006nreqid\030\006 \002(\003\022\014"
-    "\n\004nRet\030\007 \002(\003\022\r\n\005eType\030\010 \002(\003\"\256\001\n\023PackMysq"
-    "lServerInfo\022\025\n\rnRconnectTime\030\001 \002(\003\022\024\n\014nR"
-    "conneCount\030\002 \002(\003\022\r\n\005nPort\030\003 \002(\003\022\021\n\tstrDB"
-    "Name\030\004 \002(\014\022\020\n\010strDnsIp\030\005 \002(\014\022\021\n\tstrDBUse"
-    "r\030\006 \002(\014\022\020\n\010strDBPwd\030\007 \002(\014\022\021\n\tnServerID\030\010"
-    " \002(\003", 364);
+    "\n\020NFMsgMysql.proto\022\005NFMsg\"\210\001\n\016PackMysqlP"
+    "aram\022\016\n\006strSQL\030\001 \002(\014\022\024\n\014fieldVecList\030\002 \003"
+    "(\014\022\024\n\014valueVecList\030\003 \003(\014\022\r\n\005bExit\030\004 \002(\003\022"
+    "\016\n\006nreqid\030\005 \002(\003\022\014\n\004nRet\030\006 \002(\003\022\r\n\005eType\030\007"
+    " \002(\003\"\256\001\n\023PackMysqlServerInfo\022\025\n\rnRconnec"
+    "tTime\030\001 \002(\003\022\024\n\014nRconneCount\030\002 \002(\003\022\r\n\005nPo"
+    "rt\030\003 \002(\003\022\021\n\tstrDBName\030\004 \002(\014\022\020\n\010strDnsIp\030"
+    "\005 \002(\014\022\021\n\tstrDBUser\030\006 \002(\014\022\020\n\010strDBPwd\030\007 \002"
+    "(\014\022\021\n\tnServerID\030\010 \002(\003", 341);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "NFMsgMysql.proto", &protobuf_RegisterTypes);
   PackMysqlParam::default_instance_ = new PackMysqlParam();
@@ -143,8 +141,7 @@ struct StaticDescriptorInitializer_NFMsgMysql_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int PackMysqlParam::kStrRecordNameFieldNumber;
-const int PackMysqlParam::kStrKeyFieldNumber;
+const int PackMysqlParam::kStrSQLFieldNumber;
 const int PackMysqlParam::kFieldVecListFieldNumber;
 const int PackMysqlParam::kValueVecListFieldNumber;
 const int PackMysqlParam::kBExitFieldNumber;
@@ -169,8 +166,7 @@ PackMysqlParam::PackMysqlParam(const PackMysqlParam& from)
 
 void PackMysqlParam::SharedCtor() {
   _cached_size_ = 0;
-  strrecordname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  strkey_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  strsql_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   bexit_ = GOOGLE_LONGLONG(0);
   nreqid_ = GOOGLE_LONGLONG(0);
   nret_ = GOOGLE_LONGLONG(0);
@@ -183,11 +179,8 @@ PackMysqlParam::~PackMysqlParam() {
 }
 
 void PackMysqlParam::SharedDtor() {
-  if (strrecordname_ != &::google::protobuf::internal::kEmptyString) {
-    delete strrecordname_;
-  }
-  if (strkey_ != &::google::protobuf::internal::kEmptyString) {
-    delete strkey_;
+  if (strsql_ != &::google::protobuf::internal::kEmptyString) {
+    delete strsql_;
   }
   if (this != default_instance_) {
   }
@@ -216,14 +209,9 @@ PackMysqlParam* PackMysqlParam::New() const {
 
 void PackMysqlParam::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_strrecordname()) {
-      if (strrecordname_ != &::google::protobuf::internal::kEmptyString) {
-        strrecordname_->clear();
-      }
-    }
-    if (has_strkey()) {
-      if (strkey_ != &::google::protobuf::internal::kEmptyString) {
-        strkey_->clear();
+    if (has_strsql()) {
+      if (strsql_ != &::google::protobuf::internal::kEmptyString) {
+        strsql_->clear();
       }
     }
     bexit_ = GOOGLE_LONGLONG(0);
@@ -243,35 +231,21 @@ bool PackMysqlParam::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required bytes strRecordName = 1;
+      // required bytes strSQL = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_strrecordname()));
+                input, this->mutable_strsql()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_strKey;
+        if (input->ExpectTag(18)) goto parse_fieldVecList;
         break;
       }
 
-      // required bytes strKey = 2;
+      // repeated bytes fieldVecList = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_strKey:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_strkey()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(26)) goto parse_fieldVecList;
-        break;
-      }
-
-      // repeated bytes fieldVecList = 3;
-      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_fieldVecList:
@@ -280,13 +254,13 @@ bool PackMysqlParam::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(26)) goto parse_fieldVecList;
-        if (input->ExpectTag(34)) goto parse_valueVecList;
+        if (input->ExpectTag(18)) goto parse_fieldVecList;
+        if (input->ExpectTag(26)) goto parse_valueVecList;
         break;
       }
 
-      // repeated bytes valueVecList = 4;
-      case 4: {
+      // repeated bytes valueVecList = 3;
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_valueVecList:
@@ -295,13 +269,13 @@ bool PackMysqlParam::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(34)) goto parse_valueVecList;
-        if (input->ExpectTag(40)) goto parse_bExit;
+        if (input->ExpectTag(26)) goto parse_valueVecList;
+        if (input->ExpectTag(32)) goto parse_bExit;
         break;
       }
 
-      // required int64 bExit = 5;
-      case 5: {
+      // required int64 bExit = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_bExit:
@@ -312,12 +286,12 @@ bool PackMysqlParam::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(48)) goto parse_nreqid;
+        if (input->ExpectTag(40)) goto parse_nreqid;
         break;
       }
 
-      // required int64 nreqid = 6;
-      case 6: {
+      // required int64 nreqid = 5;
+      case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_nreqid:
@@ -328,12 +302,12 @@ bool PackMysqlParam::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(56)) goto parse_nRet;
+        if (input->ExpectTag(48)) goto parse_nRet;
         break;
       }
 
-      // required int64 nRet = 7;
-      case 7: {
+      // required int64 nRet = 6;
+      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_nRet:
@@ -344,12 +318,12 @@ bool PackMysqlParam::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(64)) goto parse_eType;
+        if (input->ExpectTag(56)) goto parse_eType;
         break;
       }
 
-      // required int64 eType = 8;
-      case 8: {
+      // required int64 eType = 7;
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_eType:
@@ -382,48 +356,42 @@ bool PackMysqlParam::MergePartialFromCodedStream(
 
 void PackMysqlParam::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required bytes strRecordName = 1;
-  if (has_strrecordname()) {
+  // required bytes strSQL = 1;
+  if (has_strsql()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytes(
-      1, this->strrecordname(), output);
+      1, this->strsql(), output);
   }
 
-  // required bytes strKey = 2;
-  if (has_strkey()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytes(
-      2, this->strkey(), output);
-  }
-
-  // repeated bytes fieldVecList = 3;
+  // repeated bytes fieldVecList = 2;
   for (int i = 0; i < this->fieldveclist_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteBytes(
-      3, this->fieldveclist(i), output);
+      2, this->fieldveclist(i), output);
   }
 
-  // repeated bytes valueVecList = 4;
+  // repeated bytes valueVecList = 3;
   for (int i = 0; i < this->valueveclist_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteBytes(
-      4, this->valueveclist(i), output);
+      3, this->valueveclist(i), output);
   }
 
-  // required int64 bExit = 5;
+  // required int64 bExit = 4;
   if (has_bexit()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->bexit(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->bexit(), output);
   }
 
-  // required int64 nreqid = 6;
+  // required int64 nreqid = 5;
   if (has_nreqid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->nreqid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->nreqid(), output);
   }
 
-  // required int64 nRet = 7;
+  // required int64 nRet = 6;
   if (has_nret()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(7, this->nret(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->nret(), output);
   }
 
-  // required int64 eType = 8;
+  // required int64 eType = 7;
   if (has_etype()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(8, this->etype(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(7, this->etype(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -434,50 +402,43 @@ void PackMysqlParam::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* PackMysqlParam::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required bytes strRecordName = 1;
-  if (has_strrecordname()) {
+  // required bytes strSQL = 1;
+  if (has_strsql()) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
-        1, this->strrecordname(), target);
+        1, this->strsql(), target);
   }
 
-  // required bytes strKey = 2;
-  if (has_strkey()) {
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
-        2, this->strkey(), target);
-  }
-
-  // repeated bytes fieldVecList = 3;
+  // repeated bytes fieldVecList = 2;
   for (int i = 0; i < this->fieldveclist_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteBytesToArray(3, this->fieldveclist(i), target);
+      WriteBytesToArray(2, this->fieldveclist(i), target);
   }
 
-  // repeated bytes valueVecList = 4;
+  // repeated bytes valueVecList = 3;
   for (int i = 0; i < this->valueveclist_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteBytesToArray(4, this->valueveclist(i), target);
+      WriteBytesToArray(3, this->valueveclist(i), target);
   }
 
-  // required int64 bExit = 5;
+  // required int64 bExit = 4;
   if (has_bexit()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->bexit(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->bexit(), target);
   }
 
-  // required int64 nreqid = 6;
+  // required int64 nreqid = 5;
   if (has_nreqid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->nreqid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->nreqid(), target);
   }
 
-  // required int64 nRet = 7;
+  // required int64 nRet = 6;
   if (has_nret()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(7, this->nret(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->nret(), target);
   }
 
-  // required int64 eType = 8;
+  // required int64 eType = 7;
   if (has_etype()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(8, this->etype(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(7, this->etype(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -491,42 +452,35 @@ int PackMysqlParam::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required bytes strRecordName = 1;
-    if (has_strrecordname()) {
+    // required bytes strSQL = 1;
+    if (has_strsql()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->strrecordname());
+          this->strsql());
     }
 
-    // required bytes strKey = 2;
-    if (has_strkey()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::BytesSize(
-          this->strkey());
-    }
-
-    // required int64 bExit = 5;
+    // required int64 bExit = 4;
     if (has_bexit()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->bexit());
     }
 
-    // required int64 nreqid = 6;
+    // required int64 nreqid = 5;
     if (has_nreqid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->nreqid());
     }
 
-    // required int64 nRet = 7;
+    // required int64 nRet = 6;
     if (has_nret()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->nret());
     }
 
-    // required int64 eType = 8;
+    // required int64 eType = 7;
     if (has_etype()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -534,14 +488,14 @@ int PackMysqlParam::ByteSize() const {
     }
 
   }
-  // repeated bytes fieldVecList = 3;
+  // repeated bytes fieldVecList = 2;
   total_size += 1 * this->fieldveclist_size();
   for (int i = 0; i < this->fieldveclist_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::BytesSize(
       this->fieldveclist(i));
   }
 
-  // repeated bytes valueVecList = 4;
+  // repeated bytes valueVecList = 3;
   total_size += 1 * this->valueveclist_size();
   for (int i = 0; i < this->valueveclist_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::BytesSize(
@@ -576,11 +530,8 @@ void PackMysqlParam::MergeFrom(const PackMysqlParam& from) {
   fieldveclist_.MergeFrom(from.fieldveclist_);
   valueveclist_.MergeFrom(from.valueveclist_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_strrecordname()) {
-      set_strrecordname(from.strrecordname());
-    }
-    if (from.has_strkey()) {
-      set_strkey(from.strkey());
+    if (from.has_strsql()) {
+      set_strsql(from.strsql());
     }
     if (from.has_bexit()) {
       set_bexit(from.bexit());
@@ -611,15 +562,14 @@ void PackMysqlParam::CopyFrom(const PackMysqlParam& from) {
 }
 
 bool PackMysqlParam::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000000f3) != 0x000000f3) return false;
+  if ((_has_bits_[0] & 0x00000079) != 0x00000079) return false;
 
   return true;
 }
 
 void PackMysqlParam::Swap(PackMysqlParam* other) {
   if (other != this) {
-    std::swap(strrecordname_, other->strrecordname_);
-    std::swap(strkey_, other->strkey_);
+    std::swap(strsql_, other->strsql_);
     fieldveclist_.Swap(&other->fieldveclist_);
     valueveclist_.Swap(&other->valueveclist_);
     std::swap(bexit_, other->bexit_);

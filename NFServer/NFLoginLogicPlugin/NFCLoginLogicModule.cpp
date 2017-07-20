@@ -15,7 +15,7 @@ bool NFCLoginLogicModule::Init()
 	m_pAccountRedisModule = pPluginManager->FindModule<NFIAccountRedisModule>();
 	m_pNetModule = pPluginManager->FindModule<NFINetModule>();
 	m_pLogModule = pPluginManager->FindModule<NFILogModule>();
-	//m_pMysqlModule = pPluginManager->FindModule<NFIMysqlModule>();
+	m_pAsyMysqlModule = pPluginManager->FindModule<NFIAsyMysqlModule>();
 	m_pElementModule = pPluginManager->FindModule<NFIElementModule>();
 	m_pKernelModule = pPluginManager->FindModule<NFIKernelModule>();
 	return true;
@@ -104,4 +104,11 @@ bool NFCLoginLogicModule::AfterInit()
 	//m_pMysqlModule->ExecuteNonQuery("update user_account set userpass=@userpass", &paramVec);
 
 	return true;
+}
+
+int NFCLoginLogicModule::VerifyAccount(const std::string& strAccount, const std::string& strPwd)
+{
+	//m_pAsyMysqlModule->Query("select * from user_account ");
+	return 0;
+
 }

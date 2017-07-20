@@ -19,7 +19,7 @@ public class NFCResultLogic
         mNet = net;
         mNet.mxBinMsgEvent.RegisteredResultCodeDelegation(NFMsg.EGameEventCode.EGEC_UNKOWN_ERROR, EGEC_UNKOWN_ERROR);
 		mNet.mxBinMsgEvent.RegisteredResultCodeDelegation(NFMsg.EGameEventCode.EGEC_ACCOUNT_SUCCESS, EGEC_ACCOUNT_SUCCESS);
-		mNet.mxBinMsgEvent.RegisteredResultCodeDelegation(NFMsg.EGameEventCode.EGEC_ENTER_GAME_SUCCESS, EGEC_ENTER_GAME_SUCCESS);
+		//mNet.mxBinMsgEvent.RegisteredResultCodeDelegation(NFMsg.EGameEventCode.EGEC_ENTER_GAME_SUCCESS, EGEC_ENTER_GAME_SUCCESS);
 
     }
 

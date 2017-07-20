@@ -77,6 +77,9 @@ public:
 
 	virtual void SetGetFileContentFunctor(GET_FILECONTENT_FUNCTOR fun) = 0;
 	virtual bool GetFileContent(const std::string &strFileName, std::string &strContent) = 0;
+	//获取配置信息
+	virtual void GetConfigValue(const std::string& strName, std::string& strValue, const std::string& strDefaultValue = "")  = 0;
+	virtual void GetConfigValue(const std::string& strName, int& nValue,  int nDefaultValue = 0)  = 0;	
 };
 
 #endif

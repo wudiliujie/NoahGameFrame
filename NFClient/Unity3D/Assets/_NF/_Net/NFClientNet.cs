@@ -257,8 +257,6 @@ namespace NFTCPClient
             catch (Exception e) { e.ToString(); }
             try { if (mxClient != null) mxClient.Close(); }
             catch (Exception e) { e.ToString(); }
-            Debug.Log("¶Ï¿ªÁ¬½Ó");
-
         }
 
         public void SendBytes(byte[] bytes)

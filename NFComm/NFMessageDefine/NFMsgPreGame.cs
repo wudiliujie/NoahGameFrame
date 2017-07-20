@@ -12,6 +12,71 @@
 // Note: requires additional types generated from: NFMsgBase.proto
 namespace NFMsg
 {
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CSLogin")]
+  public partial class CSLogin : global::ProtoBuf.IExtensible
+  {
+    public CSLogin() {}
+    
+    private NFMsg.Ident _accountid;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"accountid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public NFMsg.Ident accountid
+    {
+      get { return _accountid; }
+      set { _accountid = value; }
+    }
+    private int _timestamp;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"timestamp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int timestamp
+    {
+      get { return _timestamp; }
+      set { _timestamp = value; }
+    }
+    private byte[] _sign;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"sign", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public byte[] sign
+    {
+      get { return _sign; }
+      set { _sign = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SCLogin")]
+  public partial class SCLogin : global::ProtoBuf.IExtensible
+  {
+    public SCLogin() {}
+    
+    private int _tag;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"tag", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int tag
+    {
+      get { return _tag; }
+      set { _tag = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SCRoleInfo")]
+  public partial class SCRoleInfo : global::ProtoBuf.IExtensible
+  {
+    public SCRoleInfo() {}
+    
+    private int _info;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"info", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int info
+    {
+      get { return _info; }
+      set { _info = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ServerInfoExt")]
   public partial class ServerInfoExt : global::ProtoBuf.IExtensible
   {

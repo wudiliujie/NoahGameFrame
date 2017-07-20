@@ -192,220 +192,7 @@ bool NFCMysqlDriver::Connect()
 		return true;
 }
 
-bool NFCMysqlDriver::Updata(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec)
-{
-	mysqlpp::Connection* pConnection = GetConnection();
-	if (NULL == pConnection)
-	{
-		return false;
-	}
-
-	bool bExist = false;
-	if (!Exists(strRecordName, strKey, bExist))
-	{
-		return false;
-	}
-
-	if (fieldVec.size() != valueVec.size())
-	{
-		return false;
-	}
-
-	NFMYSQLTRYBEGIN
-		mysqlpp::Query query = pConnection->query();
-	if (bExist)
-	{
-		// update
-		query << "UPDATE " << strRecordName << " SET ";
-		for (int i = 0; i < fieldVec.size(); ++i)
-		{
-			if (i == 0)
-			{
-				query << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i];
-			}
-			else
-			{
-				query << "," << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i];
-			}
-		}
-
-		query << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
-	}
-	else
-	{
-		// insert
-		query << "INSERT INTO " << strRecordName << "(" << strDefaultKey << ",";
-		for (int i = 0; i < fieldVec.size(); ++i)
-		{
-			if (i == 0)
-			{
-				query << fieldVec[i];
-			}
-			else
-			{
-				query << ", " << fieldVec[i];
-			}
-		}
-
-		query << ") VALUES(" << mysqlpp::quote << strKey << ",";
-		for (int i = 0; i < valueVec.size(); ++i)
-		{
-			if (i == 0)
-			{
-				query << mysqlpp::quote << valueVec[i];
-			}
-			else
-			{
-				query << ", " << mysqlpp::quote << valueVec[i];
-			}
-		}
-
-		query << ");";
-	}
-
-	query.execute();
-	query.reset();
-	NFMYSQLTRYEND("update or insert error")
-
-		return true;
-}
-
-
-bool NFCMysqlDriver::Query(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
-{
-	mysqlpp::Connection* pConnection = GetConnection();
-	if (NULL == pConnection)
-	{
-		return false;
-	}
-
-	NFMYSQLTRYBEGIN
-		mysqlpp::Query query = pConnection->query();
-	query << "SELECT ";
-	for (std::vector<std::string>::const_iterator iter = fieldVec.begin(); iter != fieldVec.end(); ++iter)
-	{
-		if (iter == fieldVec.begin())
-		{
-			query << *iter;
-		}
-		else
-		{
-			query << "," << *iter;
-		}
-	}
-	query << " FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
-	//query.execute(); // 官网例子不需要execute
-	mysqlpp::StoreQueryResult xResult = query.store();
-	query.reset();
-
-	if (xResult.empty() || !xResult)
-	{
-		return false;
-	}
-
-	// xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
-	for (int i = 0; i < xResult.size(); ++i)
-	{
-		for (int j = 0; j < fieldVec.size(); ++j)
-		{
-			const std::string& strFieldName = fieldVec[j];
-			std::string strValue(xResult[i][strFieldName.data()].data(), xResult[i][strFieldName.data()].length());
-			valueVec.push_back(strValue);
-		}
-	}
-	NFMYSQLTRYEND("query error")
-
-		return true;
-}
-
-
-bool NFCMysqlDriver::Select(const std::string& strRecordName, const std::string& strKey, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
-{
-	return false;
-}
-
-bool NFCMysqlDriver::Delete(const std::string& strRecordName, const std::string& strKey)
-{
-	mysqlpp::Connection* pConnection = GetConnection();
-	if (NULL == pConnection)
-	{
-		return false;
-	}
-
-	NFMYSQLTRYBEGIN
-		mysqlpp::Query query = pConnection->query();
-	query << "DELETE FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << ";";
-
-	query.execute();
-	query.reset();
-	NFMYSQLTRYEND("delete error")
-
-		return true;
-}
-
-bool NFCMysqlDriver::Exists(const std::string& strRecordName, const std::string& strKey, bool& bExit)
-{
-	mysqlpp::Connection* pConnection = GetConnection();
-	if (NULL == pConnection)
-	{
-		return false;
-	}
-
-	NFMYSQLTRYBEGIN
-		mysqlpp::Query query = pConnection->query();
-	query << "SELECT 1 FROM " << strRecordName << " WHERE " << strDefaultKey << " = " << mysqlpp::quote << strKey << " LIMIT 1;";
-
-	//query.execute();
-	mysqlpp::StoreQueryResult result = query.store();
-	query.reset();
-
-	if (!result || result.empty())
-	{
-		bExit = false;
-		return true;
-	}
-
-	NFMYSQLTRYEND("exist error")
-
-		bExit = true;
-	return true;
-}
-
-bool NFCMysqlDriver::Keys(const std::string& strRecordName, const std::string& strKeyName, std::vector<std::string>& valueVec)
-{
-	mysqlpp::Connection* pConnection = GetConnection();
-	if (NULL == pConnection)
-	{
-		return false;
-	}
-
-	const std::string strLikeKey = "%" + strKeyName + "%";
-
-	NFMYSQLTRYBEGIN
-		mysqlpp::Query query = pConnection->query();
-	query << "SELECT " << strDefaultKey << " FROM " << strRecordName << " WHERE " << strDefaultKey << " LIKE " << mysqlpp::quote << strLikeKey << " LIMIT 100;";
-
-	mysqlpp::StoreQueryResult xResult = query.store();
-	query.reset();
-
-	if (xResult.empty() || !xResult)
-	{
-		return false;
-	}
-
-	// xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
-	for (int i = 0; i < xResult.size(); ++i)
-	{
-		std::string strValue(xResult[i][strDefaultKey.data()].data(), xResult[i][strDefaultKey.data()].length());
-		valueVec.push_back(strValue);
-	}
-
-	NFMYSQLTRYEND("exist error")
-
-		return true;
-}
-
-bool NFCMysqlDriver::ExecuteNonQuery(const std::string & strSql, const std::vector<std::string>* pParamVec)
+bool NFCMysqlDriver::ExecuteNonQuery(const std::string& strSql, const std::vector<std::string>& fieldVec, const std::vector<std::string>& valueVec)
 {
 	mysqlpp::Connection* pConnection = GetConnection();
 	if (NULL == pConnection)
@@ -414,13 +201,9 @@ bool NFCMysqlDriver::ExecuteNonQuery(const std::string & strSql, const std::vect
 	}
 	NFMYSQLTRYBEGIN
 	mysqlpp::Query query = pConnection->query();
-	if (pParamVec)
+	for (int i = 0; i < fieldVec.size(); ++i)
 	{
-		const std::vector<std::string>& rParamVec = *pParamVec;
-		for (int i = 0; i < rParamVec.size(); i++)
-		{
-			query << "set " << rParamVec[i] << ";";
-		}
+		query << "set " << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i] << ";";
 	}
 	query << strSql << ";";
 	bool xResult = query.exec();
@@ -429,12 +212,12 @@ bool NFCMysqlDriver::ExecuteNonQuery(const std::string & strSql, const std::vect
 	NFMYSQLTRYEND("exist error")
 }
 
-bool NFCMysqlDriver::ExecuteScalar(const std::string & strSql, std::string & value)
+bool NFCMysqlDriver::ExecuteScalar(const std::string& strSql, const std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
 {
 	return false;
 }
 
-bool NFCMysqlDriver::ExecuteReader(const std::string & strSql, const std::vector<std::string>* pParamVec, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
+bool NFCMysqlDriver::ExecuteReader(const std::string& strSql, std::vector<std::string>& fieldVec, std::vector<std::string>& valueVec)
 {
 	mysqlpp::Connection* pConnection = GetConnection();
 	if (NULL == pConnection)
@@ -442,16 +225,12 @@ bool NFCMysqlDriver::ExecuteReader(const std::string & strSql, const std::vector
 		return false;
 	}
 	NFMYSQLTRYBEGIN
-	mysqlpp::Query query = pConnection->query();
-	if (pParamVec)
+		mysqlpp::Query query = pConnection->query();
+	for (int i = 0; i < fieldVec.size(); ++i)
 	{
-		const std::vector<std::string>& rParamVec = *pParamVec;
-		for (int i = 0; i < rParamVec.size(); i++)
-		{
-			query << "set " << rParamVec[i] << ";";
-		}
+		query << "set " << fieldVec[i] << " = " << mysqlpp::quote << valueVec[i] << ";";
 	}
-	query << strSql<< ";";
+	query << strSql << ";";
 	mysqlpp::StoreQueryResult xResult = query.store();
 	query.reset();
 
@@ -460,7 +239,13 @@ bool NFCMysqlDriver::ExecuteReader(const std::string & strSql, const std::vector
 		return false;
 	}
 
+	fieldVec.clear();
+	valueVec.clear();
 	// xResult应该只有一行的，为了以后可能出现的多条，所以用了循环
+	for (int i = 0; i < xResult.num_fields(); i++) //写入列名
+	{
+		std::string strValue(xResult.field_name(i));
+	}
 	for (int i = 0; i < xResult.size(); ++i)
 	{
 		for (int j = 0; j < xResult.num_fields(); j++)
@@ -468,9 +253,8 @@ bool NFCMysqlDriver::ExecuteReader(const std::string & strSql, const std::vector
 			std::string strValue(xResult[i][j].data(), xResult[i][j].length());
 			valueVec.push_back(strValue);
 		}
-		
 	}
 	NFMYSQLTRYEND("exist error")
 
-	return true;
+		return true;
 }

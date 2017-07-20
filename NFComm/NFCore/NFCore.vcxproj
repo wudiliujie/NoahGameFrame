@@ -132,6 +132,7 @@
     <ClCompile Include="NFCPropertyManager.cpp" />
     <ClCompile Include="NFCRecordManager.cpp" />
     <ClCompile Include="NFCRecord.cpp" />
+    <ClCompile Include="NFMd5.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

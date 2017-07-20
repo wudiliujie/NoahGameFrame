@@ -127,5 +127,8 @@
     <ClCompile Include="NFCObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NFMd5.cpp">
+      <Filter>Unit</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

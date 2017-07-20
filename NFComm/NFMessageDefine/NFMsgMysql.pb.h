@@ -92,34 +92,22 @@ class LIBPROTOC_EXPORT PackMysqlParam : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required bytes strRecordName = 1;
-  inline bool has_strrecordname() const;
-  inline void clear_strrecordname();
-  static const int kStrRecordNameFieldNumber = 1;
-  inline const ::std::string& strrecordname() const;
-  inline void set_strrecordname(const ::std::string& value);
-  inline void set_strrecordname(const char* value);
-  inline void set_strrecordname(const void* value, size_t size);
-  inline ::std::string* mutable_strrecordname();
-  inline ::std::string* release_strrecordname();
-  inline void set_allocated_strrecordname(::std::string* strrecordname);
+  // required bytes strSQL = 1;
+  inline bool has_strsql() const;
+  inline void clear_strsql();
+  static const int kStrSQLFieldNumber = 1;
+  inline const ::std::string& strsql() const;
+  inline void set_strsql(const ::std::string& value);
+  inline void set_strsql(const char* value);
+  inline void set_strsql(const void* value, size_t size);
+  inline ::std::string* mutable_strsql();
+  inline ::std::string* release_strsql();
+  inline void set_allocated_strsql(::std::string* strsql);
 
-  // required bytes strKey = 2;
-  inline bool has_strkey() const;
-  inline void clear_strkey();
-  static const int kStrKeyFieldNumber = 2;
-  inline const ::std::string& strkey() const;
-  inline void set_strkey(const ::std::string& value);
-  inline void set_strkey(const char* value);
-  inline void set_strkey(const void* value, size_t size);
-  inline ::std::string* mutable_strkey();
-  inline ::std::string* release_strkey();
-  inline void set_allocated_strkey(::std::string* strkey);
-
-  // repeated bytes fieldVecList = 3;
+  // repeated bytes fieldVecList = 2;
   inline int fieldveclist_size() const;
   inline void clear_fieldveclist();
-  static const int kFieldVecListFieldNumber = 3;
+  static const int kFieldVecListFieldNumber = 2;
   inline const ::std::string& fieldveclist(int index) const;
   inline ::std::string* mutable_fieldveclist(int index);
   inline void set_fieldveclist(int index, const ::std::string& value);
@@ -132,10 +120,10 @@ class LIBPROTOC_EXPORT PackMysqlParam : public ::google::protobuf::Message {
   inline const ::google::protobuf::RepeatedPtrField< ::std::string>& fieldveclist() const;
   inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_fieldveclist();
 
-  // repeated bytes valueVecList = 4;
+  // repeated bytes valueVecList = 3;
   inline int valueveclist_size() const;
   inline void clear_valueveclist();
-  static const int kValueVecListFieldNumber = 4;
+  static const int kValueVecListFieldNumber = 3;
   inline const ::std::string& valueveclist(int index) const;
   inline ::std::string* mutable_valueveclist(int index);
   inline void set_valueveclist(int index, const ::std::string& value);
@@ -148,40 +136,38 @@ class LIBPROTOC_EXPORT PackMysqlParam : public ::google::protobuf::Message {
   inline const ::google::protobuf::RepeatedPtrField< ::std::string>& valueveclist() const;
   inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_valueveclist();
 
-  // required int64 bExit = 5;
+  // required int64 bExit = 4;
   inline bool has_bexit() const;
   inline void clear_bexit();
-  static const int kBExitFieldNumber = 5;
+  static const int kBExitFieldNumber = 4;
   inline ::google::protobuf::int64 bexit() const;
   inline void set_bexit(::google::protobuf::int64 value);
 
-  // required int64 nreqid = 6;
+  // required int64 nreqid = 5;
   inline bool has_nreqid() const;
   inline void clear_nreqid();
-  static const int kNreqidFieldNumber = 6;
+  static const int kNreqidFieldNumber = 5;
   inline ::google::protobuf::int64 nreqid() const;
   inline void set_nreqid(::google::protobuf::int64 value);
 
-  // required int64 nRet = 7;
+  // required int64 nRet = 6;
   inline bool has_nret() const;
   inline void clear_nret();
-  static const int kNRetFieldNumber = 7;
+  static const int kNRetFieldNumber = 6;
   inline ::google::protobuf::int64 nret() const;
   inline void set_nret(::google::protobuf::int64 value);
 
-  // required int64 eType = 8;
+  // required int64 eType = 7;
   inline bool has_etype() const;
   inline void clear_etype();
-  static const int kETypeFieldNumber = 8;
+  static const int kETypeFieldNumber = 7;
   inline ::google::protobuf::int64 etype() const;
   inline void set_etype(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:NFMsg.PackMysqlParam)
  private:
-  inline void set_has_strrecordname();
-  inline void clear_has_strrecordname();
-  inline void set_has_strkey();
-  inline void clear_has_strkey();
+  inline void set_has_strsql();
+  inline void clear_has_strsql();
   inline void set_has_bexit();
   inline void clear_has_bexit();
   inline void set_has_nreqid();
@@ -193,8 +179,7 @@ class LIBPROTOC_EXPORT PackMysqlParam : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::std::string* strrecordname_;
-  ::std::string* strkey_;
+  ::std::string* strsql_;
   ::google::protobuf::RepeatedPtrField< ::std::string> fieldveclist_;
   ::google::protobuf::RepeatedPtrField< ::std::string> valueveclist_;
   ::google::protobuf::int64 bexit_;
@@ -203,7 +188,7 @@ class LIBPROTOC_EXPORT PackMysqlParam : public ::google::protobuf::Message {
   ::google::protobuf::int64 etype_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
   friend void LIBPROTOC_EXPORT protobuf_AddDesc_NFMsgMysql_2eproto();
   friend void protobuf_AssignDesc_NFMsgMysql_2eproto();
@@ -391,147 +376,77 @@ class LIBPROTOC_EXPORT PackMysqlServerInfo : public ::google::protobuf::Message 
 
 // PackMysqlParam
 
-// required bytes strRecordName = 1;
-inline bool PackMysqlParam::has_strrecordname() const {
+// required bytes strSQL = 1;
+inline bool PackMysqlParam::has_strsql() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void PackMysqlParam::set_has_strrecordname() {
+inline void PackMysqlParam::set_has_strsql() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void PackMysqlParam::clear_has_strrecordname() {
+inline void PackMysqlParam::clear_has_strsql() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void PackMysqlParam::clear_strrecordname() {
-  if (strrecordname_ != &::google::protobuf::internal::kEmptyString) {
-    strrecordname_->clear();
+inline void PackMysqlParam::clear_strsql() {
+  if (strsql_ != &::google::protobuf::internal::kEmptyString) {
+    strsql_->clear();
   }
-  clear_has_strrecordname();
+  clear_has_strsql();
 }
-inline const ::std::string& PackMysqlParam::strrecordname() const {
-  return *strrecordname_;
+inline const ::std::string& PackMysqlParam::strsql() const {
+  return *strsql_;
 }
-inline void PackMysqlParam::set_strrecordname(const ::std::string& value) {
-  set_has_strrecordname();
-  if (strrecordname_ == &::google::protobuf::internal::kEmptyString) {
-    strrecordname_ = new ::std::string;
+inline void PackMysqlParam::set_strsql(const ::std::string& value) {
+  set_has_strsql();
+  if (strsql_ == &::google::protobuf::internal::kEmptyString) {
+    strsql_ = new ::std::string;
   }
-  strrecordname_->assign(value);
+  strsql_->assign(value);
 }
-inline void PackMysqlParam::set_strrecordname(const char* value) {
-  set_has_strrecordname();
-  if (strrecordname_ == &::google::protobuf::internal::kEmptyString) {
-    strrecordname_ = new ::std::string;
+inline void PackMysqlParam::set_strsql(const char* value) {
+  set_has_strsql();
+  if (strsql_ == &::google::protobuf::internal::kEmptyString) {
+    strsql_ = new ::std::string;
   }
-  strrecordname_->assign(value);
+  strsql_->assign(value);
 }
-inline void PackMysqlParam::set_strrecordname(const void* value, size_t size) {
-  set_has_strrecordname();
-  if (strrecordname_ == &::google::protobuf::internal::kEmptyString) {
-    strrecordname_ = new ::std::string;
+inline void PackMysqlParam::set_strsql(const void* value, size_t size) {
+  set_has_strsql();
+  if (strsql_ == &::google::protobuf::internal::kEmptyString) {
+    strsql_ = new ::std::string;
   }
-  strrecordname_->assign(reinterpret_cast<const char*>(value), size);
+  strsql_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* PackMysqlParam::mutable_strrecordname() {
-  set_has_strrecordname();
-  if (strrecordname_ == &::google::protobuf::internal::kEmptyString) {
-    strrecordname_ = new ::std::string;
+inline ::std::string* PackMysqlParam::mutable_strsql() {
+  set_has_strsql();
+  if (strsql_ == &::google::protobuf::internal::kEmptyString) {
+    strsql_ = new ::std::string;
   }
-  return strrecordname_;
+  return strsql_;
 }
-inline ::std::string* PackMysqlParam::release_strrecordname() {
-  clear_has_strrecordname();
-  if (strrecordname_ == &::google::protobuf::internal::kEmptyString) {
+inline ::std::string* PackMysqlParam::release_strsql() {
+  clear_has_strsql();
+  if (strsql_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
   } else {
-    ::std::string* temp = strrecordname_;
-    strrecordname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    ::std::string* temp = strsql_;
+    strsql_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
     return temp;
   }
 }
-inline void PackMysqlParam::set_allocated_strrecordname(::std::string* strrecordname) {
-  if (strrecordname_ != &::google::protobuf::internal::kEmptyString) {
-    delete strrecordname_;
+inline void PackMysqlParam::set_allocated_strsql(::std::string* strsql) {
+  if (strsql_ != &::google::protobuf::internal::kEmptyString) {
+    delete strsql_;
   }
-  if (strrecordname) {
-    set_has_strrecordname();
-    strrecordname_ = strrecordname;
+  if (strsql) {
+    set_has_strsql();
+    strsql_ = strsql;
   } else {
-    clear_has_strrecordname();
-    strrecordname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    clear_has_strsql();
+    strsql_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
-// required bytes strKey = 2;
-inline bool PackMysqlParam::has_strkey() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void PackMysqlParam::set_has_strkey() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void PackMysqlParam::clear_has_strkey() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void PackMysqlParam::clear_strkey() {
-  if (strkey_ != &::google::protobuf::internal::kEmptyString) {
-    strkey_->clear();
-  }
-  clear_has_strkey();
-}
-inline const ::std::string& PackMysqlParam::strkey() const {
-  return *strkey_;
-}
-inline void PackMysqlParam::set_strkey(const ::std::string& value) {
-  set_has_strkey();
-  if (strkey_ == &::google::protobuf::internal::kEmptyString) {
-    strkey_ = new ::std::string;
-  }
-  strkey_->assign(value);
-}
-inline void PackMysqlParam::set_strkey(const char* value) {
-  set_has_strkey();
-  if (strkey_ == &::google::protobuf::internal::kEmptyString) {
-    strkey_ = new ::std::string;
-  }
-  strkey_->assign(value);
-}
-inline void PackMysqlParam::set_strkey(const void* value, size_t size) {
-  set_has_strkey();
-  if (strkey_ == &::google::protobuf::internal::kEmptyString) {
-    strkey_ = new ::std::string;
-  }
-  strkey_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* PackMysqlParam::mutable_strkey() {
-  set_has_strkey();
-  if (strkey_ == &::google::protobuf::internal::kEmptyString) {
-    strkey_ = new ::std::string;
-  }
-  return strkey_;
-}
-inline ::std::string* PackMysqlParam::release_strkey() {
-  clear_has_strkey();
-  if (strkey_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = strkey_;
-    strkey_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void PackMysqlParam::set_allocated_strkey(::std::string* strkey) {
-  if (strkey_ != &::google::protobuf::internal::kEmptyString) {
-    delete strkey_;
-  }
-  if (strkey) {
-    set_has_strkey();
-    strkey_ = strkey;
-  } else {
-    clear_has_strkey();
-    strkey_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
-}
-
-// repeated bytes fieldVecList = 3;
+// repeated bytes fieldVecList = 2;
 inline int PackMysqlParam::fieldveclist_size() const {
   return fieldveclist_.size();
 }
@@ -575,7 +490,7 @@ PackMysqlParam::mutable_fieldveclist() {
   return &fieldveclist_;
 }
 
-// repeated bytes valueVecList = 4;
+// repeated bytes valueVecList = 3;
 inline int PackMysqlParam::valueveclist_size() const {
   return valueveclist_.size();
 }
@@ -619,15 +534,15 @@ PackMysqlParam::mutable_valueveclist() {
   return &valueveclist_;
 }
 
-// required int64 bExit = 5;
+// required int64 bExit = 4;
 inline bool PackMysqlParam::has_bexit() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void PackMysqlParam::set_has_bexit() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void PackMysqlParam::clear_has_bexit() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void PackMysqlParam::clear_bexit() {
   bexit_ = GOOGLE_LONGLONG(0);
@@ -641,15 +556,15 @@ inline void PackMysqlParam::set_bexit(::google::protobuf::int64 value) {
   bexit_ = value;
 }
 
-// required int64 nreqid = 6;
+// required int64 nreqid = 5;
 inline bool PackMysqlParam::has_nreqid() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void PackMysqlParam::set_has_nreqid() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void PackMysqlParam::clear_has_nreqid() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void PackMysqlParam::clear_nreqid() {
   nreqid_ = GOOGLE_LONGLONG(0);
@@ -663,15 +578,15 @@ inline void PackMysqlParam::set_nreqid(::google::protobuf::int64 value) {
   nreqid_ = value;
 }
 
-// required int64 nRet = 7;
+// required int64 nRet = 6;
 inline bool PackMysqlParam::has_nret() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void PackMysqlParam::set_has_nret() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void PackMysqlParam::clear_has_nret() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void PackMysqlParam::clear_nret() {
   nret_ = GOOGLE_LONGLONG(0);
@@ -685,15 +600,15 @@ inline void PackMysqlParam::set_nret(::google::protobuf::int64 value) {
   nret_ = value;
 }
 
-// required int64 eType = 8;
+// required int64 eType = 7;
 inline bool PackMysqlParam::has_etype() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void PackMysqlParam::set_has_etype() {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void PackMysqlParam::clear_has_etype() {
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void PackMysqlParam::clear_etype() {
   etype_ = GOOGLE_LONGLONG(0);

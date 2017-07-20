@@ -42,14 +42,14 @@
 
 NFCPluginManager::NFCPluginManager() : NFIPluginManager()
 {
-   mnAppID = 0;
-   mnInitTime = time(NULL);
-   mnNowTime = mnInitTime;
+	mnAppID = 0;
+	mnInitTime = time(NULL);
+	mnNowTime = mnInitTime;
 
-   mGetFileContentFunctor = nullptr;
+	mGetFileContentFunctor = nullptr;
 
-   mstrConfigPath = "";
-   mstrConfigName = "Plugin.xml";
+	mstrConfigPath = "";
+	mstrConfigName = "Plugin.xml";
 }
 
 NFCPluginManager::~NFCPluginManager()
@@ -100,59 +100,66 @@ bool NFCPluginManager::LoadPluginConfig()
 	rapidxml::xml_document<> xDoc;
 	xDoc.parse<0>((char*)strContent.c_str());
 
-    rapidxml::xml_node<>* pRoot = xDoc.first_node();
-    rapidxml::xml_node<>* pAppNameNode = pRoot->first_node(mstrAppName.c_str());
-    if (!pAppNameNode)
-    {
-        NFASSERT(0, "There are no App ID", __FILE__, __FUNCTION__);
-        return false;
-    }
+	rapidxml::xml_node<>* pRoot = xDoc.first_node();
+	rapidxml::xml_node<>* pAppNameNode = pRoot->first_node(mstrAppName.c_str());
+	if (!pAppNameNode)
+	{
+		NFASSERT(0, "There are no App ID", __FILE__, __FUNCTION__);
+		return false;
+	}
 
-    for (rapidxml::xml_node<>* pPluginNode = pAppNameNode->first_node("Plugin"); pPluginNode; pPluginNode = pPluginNode->next_sibling("Plugin"))
-    {
-        const char* strPluginName = pPluginNode->first_attribute("Name")->value();
+	for (rapidxml::xml_node<>* pPluginNode = pAppNameNode->first_node("Plugin"); pPluginNode; pPluginNode = pPluginNode->next_sibling("Plugin"))
+	{
+		const char* strPluginName = pPluginNode->first_attribute("Name")->value();
 
-        mPluginNameMap.insert(PluginNameMap::value_type(strPluginName, true));
+		mPluginNameMap.insert(PluginNameMap::value_type(strPluginName, true));
 
-    }
+	}
 
-/*
-    rapidxml::xml_node<>* pPluginAppNode = pAppNameNode->first_node("APPID");
-    if (!pPluginAppNode)
-    {
-        NFASSERT(0, "There are no App ID", __FILE__, __FUNCTION__);
-        return false;
-    }
+	/*
+		rapidxml::xml_node<>* pPluginAppNode = pAppNameNode->first_node("APPID");
+		if (!pPluginAppNode)
+		{
+			NFASSERT(0, "There are no App ID", __FILE__, __FUNCTION__);
+			return false;
+		}
 
-    const char* strAppID = pPluginAppNode->first_attribute("Name")->value();
-    if (!strAppID)
-    {
-        NFASSERT(0, "There are no App ID", __FILE__, __FUNCTION__);
-        return false;
-    }
+		const char* strAppID = pPluginAppNode->first_attribute("Name")->value();
+		if (!strAppID)
+		{
+			NFASSERT(0, "There are no App ID", __FILE__, __FUNCTION__);
+			return false;
+		}
 
-    if (!NF_StrTo(strAppID, mnAppID))
-    {
-        NFASSERT(0, "App ID Convert Error", __FILE__, __FUNCTION__);
-        return false;
-    }
-*/
-    rapidxml::xml_node<>* pPluginConfigPathNode = pAppNameNode->first_node("ConfigPath");
-    if (!pPluginConfigPathNode)
-    {
-        NFASSERT(0, "There are no ConfigPath", __FILE__, __FUNCTION__);
-        return false;
-    }
+		if (!NF_StrTo(strAppID, mnAppID))
+		{
+			NFASSERT(0, "App ID Convert Error", __FILE__, __FUNCTION__);
+			return false;
+		}
+	*/
+	rapidxml::xml_node<>* pPluginConfigPathNode = pAppNameNode->first_node("ConfigPath");
+	if (!pPluginConfigPathNode)
+	{
+		NFASSERT(0, "There are no ConfigPath", __FILE__, __FUNCTION__);
+		return false;
+	}
 
-    if (NULL == pPluginConfigPathNode->first_attribute("Name"))
-    {
-        NFASSERT(0, "There are no ConfigPath.Name", __FILE__, __FUNCTION__);
-        return false;
-    }
+	if (NULL == pPluginConfigPathNode->first_attribute("Name"))
+	{
+		NFASSERT(0, "There are no ConfigPath.Name", __FILE__, __FUNCTION__);
+		return false;
+	}
 
-    mstrConfigPath = pPluginConfigPathNode->first_attribute("Name")->value();
+	mstrConfigPath = pPluginConfigPathNode->first_attribute("Name")->value();
+	//º”‘ÿ≈‰÷√–≈œ¢
+	for (rapidxml::xml_node<>* pConfigNode = pAppNameNode->first_node("Config"); pConfigNode; pConfigNode = pConfigNode->next_sibling("Config"))
+	{
+		const char* strConfigName = pConfigNode->first_attribute("Name")->value();
+		const char* strConfigValue = pConfigNode->first_attribute("Value")->value();
+		mConfigMap.insert(ConfigMap::value_type(strConfigName, strConfigValue));
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCPluginManager::LoadStaticPlugin(const std::string& strPluginDLLName)
@@ -173,39 +180,39 @@ bool NFCPluginManager::LoadStaticPlugin(const std::string& strPluginDLLName)
 
 void NFCPluginManager::Registered(NFIPlugin* plugin)
 {
-    std::string strPluginName = plugin->GetPluginName();
-    if (!FindPlugin(strPluginName))
-    {
+	std::string strPluginName = plugin->GetPluginName();
+	if (!FindPlugin(strPluginName))
+	{
 		// dynamic add plugin no dlls
-        //bool bFind = false;
-        //PluginNameMap::iterator it = mPluginNameMap.begin();
-        //for (it; it != mPluginNameMap.end(); ++it)
-        //{
-        //    if (strPluginName == it->first)
-        //    {
-        //        bFind = true;
-        //        break;
-        //    }
-        //}
+		//bool bFind = false;
+		//PluginNameMap::iterator it = mPluginNameMap.begin();
+		//for (it; it != mPluginNameMap.end(); ++it)
+		//{
+		//    if (strPluginName == it->first)
+		//    {
+		//        bFind = true;
+		//        break;
+		//    }
+		//}
 
-        //if (bFind)
-        {
-            mPluginInstanceMap.insert(PluginInstanceMap::value_type(strPluginName, plugin));
-            plugin->Install();
-        }
-    }
+		//if (bFind)
+		{
+			mPluginInstanceMap.insert(PluginInstanceMap::value_type(strPluginName, plugin));
+			plugin->Install();
+		}
+	}
 }
 
 void NFCPluginManager::UnRegistered(NFIPlugin* plugin)
 {
-    PluginInstanceMap::iterator it = mPluginInstanceMap.find(plugin->GetPluginName());
-    if (it != mPluginInstanceMap.end())
-    {
-        it->second->Uninstall();
-        delete it->second;
-        it->second = NULL;
-        mPluginInstanceMap.erase(it);
-    }
+	PluginInstanceMap::iterator it = mPluginInstanceMap.find(plugin->GetPluginName());
+	if (it != mPluginInstanceMap.end())
+	{
+		it->second->Uninstall();
+		delete it->second;
+		it->second = NULL;
+		mPluginInstanceMap.erase(it);
+	}
 }
 
 bool NFCPluginManager::ReLoadPlugin(const std::string & strPluginDLLName)
@@ -228,7 +235,7 @@ bool NFCPluginManager::ReLoadPlugin(const std::string & strPluginDLLName)
 		pModule->BeforeShut();
 		pModule->Shut();
 		pModule->Finalize();
-		
+
 		pModule = pPlugin->Next();
 	}
 
@@ -301,29 +308,29 @@ bool NFCPluginManager::ReLoadPlugin(const std::string & strPluginDLLName)
 
 NFIPlugin* NFCPluginManager::FindPlugin(const std::string& strPluginName)
 {
-    PluginInstanceMap::iterator it = mPluginInstanceMap.find(strPluginName);
-    if (it != mPluginInstanceMap.end())
-    {
-        return it->second;
-    }
+	PluginInstanceMap::iterator it = mPluginInstanceMap.find(strPluginName);
+	if (it != mPluginInstanceMap.end())
+	{
+		return it->second;
+	}
 
-    return NULL;
+	return NULL;
 }
 
 bool NFCPluginManager::Execute()
 {
-    mnNowTime = time(NULL);
+	mnNowTime = time(NULL);
 
-    bool bRet = true;
+	bool bRet = true;
 
-    PluginInstanceMap::iterator it = mPluginInstanceMap.begin();
-    for (; it != mPluginInstanceMap.end(); ++it)
-    {
-        bool tembRet = it->second->Execute();
-        bRet = bRet && tembRet;
-    }
+	PluginInstanceMap::iterator it = mPluginInstanceMap.begin();
+	for (; it != mPluginInstanceMap.end(); ++it)
+	{
+		bool tembRet = it->second->Execute();
+		bRet = bRet && tembRet;
+	}
 
-    return bRet;
+	return bRet;
 }
 
 inline int NFCPluginManager::GetAppID() const
@@ -333,7 +340,7 @@ inline int NFCPluginManager::GetAppID() const
 
 inline void NFCPluginManager::SetAppID(const int nAppID)
 {
-    mnAppID = nAppID;
+	mnAppID = nAppID;
 }
 
 inline NFINT64 NFCPluginManager::GetInitTime() const
@@ -418,22 +425,46 @@ bool NFCPluginManager::GetFileContent(const std::string &strFileName, std::strin
 
 	return true;
 }
+void NFCPluginManager::GetConfigValue(const std::string& strName, std::string& strValue, const std::string& strDefaultValue /*= ""*/)
+{
+	auto ifind = mConfigMap.find(strName);
+	if (ifind != mConfigMap.end())
+	{
+		strValue = ifind->second;
+	}
+	else
+	{
+		strValue = strDefaultValue;
+	}
+}
+void NFCPluginManager::GetConfigValue(const std::string& strName, int& nValue, int nDefaultValue /*= 0*/)
+{
+	auto ifind = mConfigMap.find(strName);
+	if (ifind != mConfigMap.end())
+	{
+		nValue = atoi(ifind->second.c_str());
+	}
+	else
+	{
+		nValue = nDefaultValue;
+	}	
+}
 
 void NFCPluginManager::AddModule(const std::string& strModuleName, NFIModule* pModule)
 {
-    if (!FindModule(strModuleName))
-    {
-        mModuleInstanceMap.insert(ModuleInstanceMap::value_type(strModuleName, pModule));
-    }
+	if (!FindModule(strModuleName))
+	{
+		mModuleInstanceMap.insert(ModuleInstanceMap::value_type(strModuleName, pModule));
+	}
 }
 
 void NFCPluginManager::RemoveModule(const std::string& strModuleName)
 {
-    ModuleInstanceMap::iterator it = mModuleInstanceMap.find(strModuleName);
-    if (it != mModuleInstanceMap.end())
-    {
-        mModuleInstanceMap.erase(it);
-    }
+	ModuleInstanceMap::iterator it = mModuleInstanceMap.find(strModuleName);
+	if (it != mModuleInstanceMap.end())
+	{
+		mModuleInstanceMap.erase(it);
+	}
 }
 
 
@@ -457,7 +488,7 @@ NFIModule* NFCPluginManager::FindModule(const std::string& strModuleName)
 			strSubModuleName = strSubModuleName.substr(i + 1, strSubModuleName.length());
 			break;
 		}
-	}
+}
 #endif
 
 	ModuleInstanceMap::iterator it = mModuleInstanceMap.find(strSubModuleName);
@@ -466,62 +497,62 @@ NFIModule* NFCPluginManager::FindModule(const std::string& strModuleName)
 		return it->second;
 	}
 
-    return NULL;
+	return NULL;
 }
 
 bool NFCPluginManager::AfterInit()
 {
-    PluginInstanceMap::iterator itAfterInstance = mPluginInstanceMap.begin();
-    for (itAfterInstance; itAfterInstance != mPluginInstanceMap.end(); itAfterInstance++)
-    {
-        itAfterInstance->second->AfterInit();
-    }
+	PluginInstanceMap::iterator itAfterInstance = mPluginInstanceMap.begin();
+	for (itAfterInstance; itAfterInstance != mPluginInstanceMap.end(); itAfterInstance++)
+	{
+		itAfterInstance->second->AfterInit();
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCPluginManager::CheckConfig()
 {
-    PluginInstanceMap::iterator itCheckInstance = mPluginInstanceMap.begin();
-    for (itCheckInstance; itCheckInstance != mPluginInstanceMap.end(); itCheckInstance++)
-    {
-        itCheckInstance->second->CheckConfig();
-    }
+	PluginInstanceMap::iterator itCheckInstance = mPluginInstanceMap.begin();
+	for (itCheckInstance; itCheckInstance != mPluginInstanceMap.end(); itCheckInstance++)
+	{
+		itCheckInstance->second->CheckConfig();
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCPluginManager::ReadyExecute()
 {
-    PluginInstanceMap::iterator itCheckInstance = mPluginInstanceMap.begin();
-    for (itCheckInstance; itCheckInstance != mPluginInstanceMap.end(); itCheckInstance++)
-    {
-        itCheckInstance->second->ReadyExecute();
-    }
+	PluginInstanceMap::iterator itCheckInstance = mPluginInstanceMap.begin();
+	for (itCheckInstance; itCheckInstance != mPluginInstanceMap.end(); itCheckInstance++)
+	{
+		itCheckInstance->second->ReadyExecute();
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCPluginManager::BeforeShut()
 {
-    PluginInstanceMap::iterator itBeforeInstance = mPluginInstanceMap.begin();
-    for (itBeforeInstance; itBeforeInstance != mPluginInstanceMap.end(); itBeforeInstance++)
-    {
-        itBeforeInstance->second->BeforeShut();
-    }
+	PluginInstanceMap::iterator itBeforeInstance = mPluginInstanceMap.begin();
+	for (itBeforeInstance; itBeforeInstance != mPluginInstanceMap.end(); itBeforeInstance++)
+	{
+		itBeforeInstance->second->BeforeShut();
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCPluginManager::Shut()
 {
-    PluginInstanceMap::iterator itInstance = mPluginInstanceMap.begin();
-    for (itInstance; itInstance != mPluginInstanceMap.end(); ++itInstance)
-    {
-        itInstance->second->Shut();
-    }
+	PluginInstanceMap::iterator itInstance = mPluginInstanceMap.begin();
+	for (itInstance; itInstance != mPluginInstanceMap.end(); ++itInstance)
+	{
+		itInstance->second->Shut();
+	}
 
-    return true;
+	return true;
 }
 
 bool NFCPluginManager::Finalize()
@@ -552,74 +583,74 @@ bool NFCPluginManager::Finalize()
 
 bool NFCPluginManager::LoadPluginLibrary(const std::string& strPluginDLLName)
 {
-    PluginLibMap::iterator it = mPluginLibMap.find(strPluginDLLName);
-    if (it == mPluginLibMap.end())
-    {
-        NFCDynLib* pLib = new NFCDynLib(strPluginDLLName);
-        bool bLoad = pLib->Load();
+	PluginLibMap::iterator it = mPluginLibMap.find(strPluginDLLName);
+	if (it == mPluginLibMap.end())
+	{
+		NFCDynLib* pLib = new NFCDynLib(strPluginDLLName);
+		bool bLoad = pLib->Load();
 
-        if (bLoad)
-        {
-            mPluginLibMap.insert(PluginLibMap::value_type(strPluginDLLName, pLib));
+		if (bLoad)
+		{
+			mPluginLibMap.insert(PluginLibMap::value_type(strPluginDLLName, pLib));
 
-            DLL_START_PLUGIN_FUNC pFunc = (DLL_START_PLUGIN_FUNC)pLib->GetSymbol("DllStartPlugin");
-            if (!pFunc)
-            {
-                std::cout << "Find function DllStartPlugin Failed in [" << pLib->GetName() << "]" << std::endl;
-                assert(0);
-                return false;
-            }
+			DLL_START_PLUGIN_FUNC pFunc = (DLL_START_PLUGIN_FUNC)pLib->GetSymbol("DllStartPlugin");
+			if (!pFunc)
+			{
+				std::cout << "Find function DllStartPlugin Failed in [" << pLib->GetName() << "]" << std::endl;
+				assert(0);
+				return false;
+			}
 
-            pFunc(this);
+			pFunc(this);
 
-            return true;
-        }
-        else
-        {
+			return true;
+		}
+		else
+		{
 #if NF_PLATFORM == NF_PLATFORM_LINUX
-            char* error = dlerror();
-            if (error)
-            {
-                std::cout << stderr << " Load shared lib[" << pLib->GetName() << "] failed, ErrorNo. = [" << error << "]" << std::endl;
-                std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
-                assert(0);
-                return false;
-            }
+			char* error = dlerror();
+			if (error)
+			{
+				std::cout << stderr << " Load shared lib[" << pLib->GetName() << "] failed, ErrorNo. = [" << error << "]" << std::endl;
+				std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
+				assert(0);
+				return false;
+			}
 #elif NF_PLATFORM == NF_PLATFORM_WIN
-            std::cout << stderr << " Load DLL[" << pLib->GetName() << "] failed, ErrorNo. = [" << GetLastError() << "]" << std::endl;
-            std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
-            assert(0);
-            return false;
+			std::cout << stderr << " Load DLL[" << pLib->GetName() << "] failed, ErrorNo. = [" << GetLastError() << "]" << std::endl;
+			std::cout << "Load [" << pLib->GetName() << "] failed" << std::endl;
+			assert(0);
+			return false;
 #endif // NF_PLATFORM
-        }
-    }
+			}
+		}
 
-    return false;
-}
+	return false;
+	}
 
 bool NFCPluginManager::UnLoadPluginLibrary(const std::string& strPluginDLLName)
 {
-    PluginLibMap::iterator it = mPluginLibMap.find(strPluginDLLName);
-    if (it != mPluginLibMap.end())
-    {
-        NFCDynLib* pLib = it->second;
-        DLL_STOP_PLUGIN_FUNC pFunc = (DLL_STOP_PLUGIN_FUNC)pLib->GetSymbol("DllStopPlugin");
+	PluginLibMap::iterator it = mPluginLibMap.find(strPluginDLLName);
+	if (it != mPluginLibMap.end())
+	{
+		NFCDynLib* pLib = it->second;
+		DLL_STOP_PLUGIN_FUNC pFunc = (DLL_STOP_PLUGIN_FUNC)pLib->GetSymbol("DllStopPlugin");
 
-        if (pFunc)
-        {
-            pFunc(this);
-        }
+		if (pFunc)
+		{
+			pFunc(this);
+		}
 
-        pLib->UnLoad();
+		pLib->UnLoad();
 
-        delete pLib;
-        pLib = NULL;
-        mPluginLibMap.erase(it);
+		delete pLib;
+		pLib = NULL;
+		mPluginLibMap.erase(it);
 
-        return true;
-    }
+		return true;
+	}
 
-    return false;
+	return false;
 }
 
 bool NFCPluginManager::UnLoadStaticPlugin(const std::string & strPluginDLLName)

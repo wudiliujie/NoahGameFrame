@@ -8,6 +8,7 @@
 
 #include "NFComm/NFPluginModule/NFIPlugin.h"
 #include "NFComm/NFPluginModule/NFIPluginManager.h"
+#include "NFComm/NFMessageDefine/NFMsgDefine.h"
 
 //////////////////////////////////////////////////////////////////////////
 class NFMysqlPlugin : public NFIPlugin
